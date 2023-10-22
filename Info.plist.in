@@ -1,0 +1,27 @@
+<!-- Info.plist.in -->
+<plist version="1.0">
+<dict>
+    <key>CFBundleExecutable</key>
+    <string>@MY_APP_NAME@</string>
+    <key>CFBundleIconFile</key>
+    <string>@MY_ICON_NAME@.icns</string>
+    <key>CFBundleIdentifier</key>
+    <string>bressani.dev.octasplit</string>
+    <key>CFBundleName</key>
+    <string>@MY_APP_NAME@</string>
+    <key>CFBundleDisplayName</key>
+    <string>OctaSplit</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <key>CFBundleShortVersionString</key>
+    <string>@MY_APP_VERSION@</string>
+    <key>CFBundleVersion</key>
+    <string>@MY_APP_VERSION@</string>
+    <key>NSHumanReadableCopyright</key>
+    <string></string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+</dict>
+</plist>
