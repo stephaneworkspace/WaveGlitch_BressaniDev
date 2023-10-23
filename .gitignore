@@ -132,4 +132,4 @@ CPackSourceConfig.cmake
 /WaveGlitch-BressaniDev.dir/Debug/OctaSplit.vcxproj.FileListAbsolute.txt
 /.vs/WaveGlitch-BressaniDev/v17/Solution.VC.db-shm
 /.vs/WaveGlitch-BressaniDev/v17/Solution.VC.db-wal
-/Info.plist
+#/Info.plist
