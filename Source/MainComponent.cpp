@@ -5,7 +5,7 @@
 
 MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
                                  closeButton("Close"),
-                                 splitButton("Split"),
+                                 processingButton("Processing"),
                                  fileSelectButton("Select .wav file"),
                                  aboutButton("About"),
                                  bpmEditor(),
@@ -64,7 +64,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     addAndMakeVisible(soundLabel);
     addAndMakeVisible(soundEditor);
     addAndMakeVisible(closeButton);
-    addAndMakeVisible(splitButton);
+    addAndMakeVisible(processingButton);
     addAndMakeVisible(fileSelectButton);
     addAndMakeVisible(aboutButton);
 
@@ -132,8 +132,8 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
 
     closeButton.setBounds(getWidth() - 100, 10, 80, 30);
     closeButton.onClick = [this] { juce::JUCEApplication::getInstance()->systemRequestedQuit(); };
-    splitButton.setBounds(getWidth() - 100, 90, 80, 30);
-    splitButton.onClick = [this] { splitButtonClicked(); };
+    processingButton.setBounds(getWidth() - 100, 90, 80, 30);
+    processingButton.onClick = [this] { processingButtonClicked(); };
     fileSelectButton.setButtonText("Select .wav file");
     fileSelectButton.setBounds(getWidth() - 100, 50, 80, 30);
     fileSelectButton.onClick = [this] { fileSelectButtonClicked(); };
@@ -197,7 +197,7 @@ void MainComponent::resized()
     soundEditor.setBounds(600, getHeight() - 60, 400, 40);
     closeButton.setBounds(getWidth() - 100, 10, 80, 30);
     fileSelectButton.setBounds(getWidth() - 100, 50, 80, 30);
-    splitButton.setBounds(getWidth() - 100, 90, 80, 30);
+    processingButton.setBounds(getWidth() - 100, 90, 80, 30);
     aboutButton.setBounds(getWidth() - 100, 140, 80, 30);
 }
 
@@ -284,7 +284,7 @@ bool MainComponent::keyPressed(const KeyPress &key, Component *originatingCompon
 
 void MainComponent::textEditorTextChanged (TextEditor& editor)
 {
-    splitButton.setEnabled(!bpmEditor.getText().isEmpty() && !soundEditor.getText().isEmpty()); // TODO ajouter le reste
+    processingButton.setEnabled(!bpmEditor.getText().isEmpty() && !soundEditor.getText().isEmpty()); // TODO ajouter le reste
 }
 
 void MainComponent::fileSelectButtonClicked()
@@ -300,7 +300,7 @@ void MainComponent::fileSelectButtonClicked()
     }
 }
 
-void MainComponent::splitButtonClicked()
+void MainComponent::processingButtonClicked()
 {
     /*
     if (bpmEditor.getText().isEmpty() || barEditor.getText().isEmpty()) {

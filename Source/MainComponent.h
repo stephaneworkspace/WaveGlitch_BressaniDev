@@ -44,7 +44,7 @@ public:
 
     void fileSelectButtonClicked();
 
-    void splitButtonClicked();
+    void processingButtonClicked();
 
     void aboutButtonClicked();
 
@@ -72,7 +72,7 @@ private:
     Label soundLabel;
     TextEditor soundEditor;
     TextButton closeButton;
-    TextButton splitButton;
+    TextButton processingButton;
     TextButton fileSelectButton;
     TextButton aboutButton;
     juce::Image pngImage;
