@@ -72,6 +72,7 @@ private:
     Label soundLabel;
     TextEditor soundEditor;
     TextButton closeButton;
+    TextButton chooseButton;
     TextButton processingButton;
     TextButton fileSelectButton;
     TextButton aboutButton;

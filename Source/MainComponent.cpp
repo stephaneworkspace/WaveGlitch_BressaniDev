@@ -5,6 +5,7 @@
 
 MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
                                  closeButton("Close"),
+                                 chooseButton("Choose root export folder"),
                                  processingButton("Processing"),
                                  fileSelectButton("Select .wav file"),
                                  aboutButton("About"),
@@ -64,6 +65,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     addAndMakeVisible(soundLabel);
     addAndMakeVisible(soundEditor);
     addAndMakeVisible(closeButton);
+    addAndMakeVisible(chooseButton);
     addAndMakeVisible(processingButton);
     addAndMakeVisible(fileSelectButton);
     addAndMakeVisible(aboutButton);
@@ -132,13 +134,15 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
 
     closeButton.setBounds(getWidth() - 100, 10, 80, 30);
     closeButton.onClick = [this] { juce::JUCEApplication::getInstance()->systemRequestedQuit(); };
-    processingButton.setBounds(getWidth() - 100, 90, 80, 30);
-    processingButton.onClick = [this] { processingButtonClicked(); };
+    chooseButton.setBounds(getWidth() - 100, 50, 80, 30);
+    chooseButton.onClick = [this] { processingButtonClicked(); };
     fileSelectButton.setButtonText("Select .wav file");
-    fileSelectButton.setBounds(getWidth() - 100, 50, 80, 30);
+    fileSelectButton.setBounds(getWidth() - 100, 90, 80, 30);
     fileSelectButton.onClick = [this] { fileSelectButtonClicked(); };
+    processingButton.setBounds(getWidth() - 100, 130, 80, 30);
+    processingButton.onClick = [this] { processingButtonClicked(); };
     aboutButton.setButtonText("About");
-    aboutButton.setBounds(getWidth() - 100, 130, 80, 30);
+    aboutButton.setBounds(getWidth() - 100, 170, 80, 30);
     aboutButton.onClick = [this] { aboutButtonClicked(); };
 }
 
