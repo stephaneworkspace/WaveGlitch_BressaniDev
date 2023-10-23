@@ -16,7 +16,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     appVersion = misc.getAppVersion();
 
     // JUCE settings
-    setSize(800, 600);
+    setSize(1024, 768);
     startTimerHz(60); // Change this value to control the frame rate
     setWantsKeyboardFocus(true); // Ceci permet à MainComponent d'obtenir le focus clavier
 
@@ -141,8 +141,12 @@ void MainComponent::resized()
     sampleRateLabel.setBounds(10, getHeight() -90, getWidth() - 10, 20);
     durationLabel.setBounds(10, getHeight() -120, getWidth() - 10, 20);
     //titleLabel.setBounds((getWidth() - 200) / 2, 20 /*(getHeight() - 30)*/ / 2, 400, 30);
-    bpmLabel.setBounds(500, getHeight() - 120, 100, 40);
-    bpmEditor.setBounds(600, getHeight() - 120, 150, 40);
+    bpmLabel.setBounds(500, getHeight() - 240, 100, 40);
+    bpmEditor.setBounds(600, getHeight() - 240, 150, 40);
+
+
+    //bpmLabel.setBounds(500, getHeight() - 120, 100, 40);
+    //bpmEditor.setBounds(600, getHeight() - 120, 150, 40);
     barLabel.setBounds(500, getHeight() - 60, 100, 40);
     barEditor.setBounds(600, getHeight() - 60, 150, 40);
     closeButton.setBounds(getWidth() - 100, 10, 80, 30);
