@@ -50,7 +50,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     addAndMakeVisible(bpmLabel);
     addAndMakeVisible(bpmEditor);
     addAndMakeVisible(toneLabel);
-    addAndMakeVisible(toneEditor);
+    addAndMakeVisible(toneSelect);
     addAndMakeVisible(yearLabel);
     addAndMakeVisible(yearEditor);
     addAndMakeVisible(barLabel);
@@ -86,10 +86,21 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     toneLabel.setFont (juce::Font (30.0f));
     toneLabel.setText("Tone: ", juce::dontSendNotification);
     toneLabel.setJustificationType (juce::Justification::centred);
-    toneEditor.setFont (juce::Font (30.0f));
-    toneEditor.setInputRestrictions(2, "ABCDEFGbd"); // Autoriser uniquement les chiffres et le point.
-    toneEditor.setJustification(juce::Justification::centred);
-    toneEditor.setText("C");
+    toneSelect.setLookAndFeel(&customLookAndFeel);
+    toneSelect.addItem("C", 1);
+    toneSelect.addItem("C#/Db", 2);
+    toneSelect.addItem("D", 3);
+    toneSelect.addItem("D#/Eb", 4);
+    toneSelect.addItem("E", 5);
+    toneSelect.addItem("F", 6);
+    toneSelect.addItem("F#/Gb", 7);
+    toneSelect.addItem("G", 8);
+    toneSelect.addItem("G#/Ab", 9);
+    toneSelect.addItem("A", 10);
+    toneSelect.addItem("A#/Bb", 11);
+    toneSelect.addItem("B", 12);
+    toneSelect.setSelectedId(1); // TODO .env
+
 
     yearLabel.setFont (juce::Font (30.0f));
     yearLabel.setText("Year: ", juce::dontSendNotification);
@@ -121,6 +132,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
 
 MainComponent::~MainComponent() {
     Component::getTopLevelComponent()->removeKeyListener(this);
+    toneSelect.setLookAndFeel(nullptr);
 }
 
 void MainComponent::paint(Graphics& g)
@@ -164,7 +176,7 @@ void MainComponent::resized()
     bpmLabel.setBounds(500, getHeight() - 240, 100, 40);
     bpmEditor.setBounds(600, getHeight() - 240, 150, 40);
     toneLabel.setBounds(500, getHeight() - 180, 100, 40);
-    toneEditor.setBounds(600, getHeight() - 180, 150, 40);
+    toneSelect.setBounds(600, getHeight() - 180, 150, 40);
     yearLabel.setBounds(500, getHeight() - 120, 100, 40);
     yearEditor.setBounds(600, getHeight() - 120, 150, 40);
     barLabel.setBounds(500, getHeight() - 60, 100, 40);

@@ -97,6 +97,8 @@ if (APPLE)
             Source/MyObjCWrapper.mm
             Source/Misc.h
             Source/Misc.cpp
+            Source/CustomLookAndFeel.h
+            Source/CustomLookAndFeel.cpp
             Source/MainComponent.h
             Source/MainComponent.cpp
             Source/Main.cpp
@@ -116,6 +118,8 @@ else ()
             .env
             Source/Misc.h
             Source/Misc.cpp
+            Source/CustomLookAndFeel.h
+            Source/CustomLookAndFeel.cpp
             Source/MainComponent.h
             Source/MainComponent.cpp
             Source/Main.cpp

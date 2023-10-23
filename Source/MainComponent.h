@@ -12,6 +12,7 @@
 #include <juce_gui_basics/juce_gui_basics.h>
 #include "Misc.h"
 #include "MyObjCWrapper.h"
+#include "CustomLookAndFeel.h"
 
 using namespace std;
 using namespace juce;
@@ -51,6 +52,7 @@ private:
     void timerCallback() override;
     void loadPNG(const String& path);
     unique_ptr<Drawable> loadSVG(const String &path);
+    CustomLookAndFeel customLookAndFeel;
 
     string appName;
     string appVersion;
@@ -62,7 +64,7 @@ private:
     Label bpmLabel;
     TextEditor bpmEditor;
     Label toneLabel;
-    TextEditor toneEditor;
+    ComboBox toneSelect;
     Label yearLabel;
     TextEditor yearEditor;
     Label barLabel;
