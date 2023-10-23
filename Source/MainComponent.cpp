@@ -84,7 +84,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
 
     bpmLabel.setFont (juce::Font (30.0f));
     bpmLabel.setText("Bpm: ", juce::dontSendNotification);
-    bpmLabel.setJustificationType (juce::Justification::centred);
+    bpmLabel.setJustificationType (juce::Justification::left);
     bpmEditor.setFont (juce::Font (30.0f));
     bpmEditor.setInputRestrictions(0, "0123456789."); // Autoriser uniquement les chiffres et le point.
     bpmEditor.setJustification(juce::Justification::centred);
@@ -92,7 +92,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
 
     toneLabel.setFont (juce::Font (30.0f));
     toneLabel.setText("Tone: ", juce::dontSendNotification);
-    toneLabel.setJustificationType (juce::Justification::centred);
+    toneLabel.setJustificationType (juce::Justification::left);
     toneSelect.setLookAndFeel(&customLookAndFeel);
     toneSelect.addItem("C", 1);
     toneSelect.addItem("C#/Db", 2);
@@ -110,7 +110,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
 
     yearLabel.setFont (juce::Font (30.0f));
     yearLabel.setText("Year: ", juce::dontSendNotification);
-    yearLabel.setJustificationType (juce::Justification::centred);
+    yearLabel.setJustificationType (juce::Justification::left);
     yearEditor.setFont (juce::Font (30.0f));
     yearEditor.setInputRestrictions(4, "0123456789"); // Autoriser uniquement les chiffres et le point.
     yearEditor.setJustification(juce::Justification::centred);
@@ -118,14 +118,14 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
 
     songLabel.setFont (juce::Font (30.0f));
     songLabel.setText("Song: ", juce::dontSendNotification);
-    songLabel.setJustificationType (juce::Justification::centred);
+    songLabel.setJustificationType (juce::Justification::left);
     songEditor.setFont (juce::Font (30.0f));
     songEditor.setJustification(juce::Justification::left);
     songEditor.setText("");
 
     soundLabel.setFont (juce::Font (30.0f));
     soundLabel.setText("Sound: ", juce::dontSendNotification);
-    soundLabel.setJustificationType (juce::Justification::centred);
+    soundLabel.setJustificationType (juce::Justification::left);
     soundEditor.setFont (juce::Font (30.0f));
     soundEditor.setJustification(juce::Justification::left);
     soundEditor.setText("");
@@ -187,14 +187,14 @@ void MainComponent::resized()
     //titleLabel.setBounds((getWidth() - 200) / 2, 20 /*(getHeight() - 30)*/ / 2, 400, 30);
     bpmLabel.setBounds(500, getHeight() - 240, 100, 40);
     bpmEditor.setBounds(600, getHeight() - 240, 150, 40);
-    toneLabel.setBounds(750, getHeight() - 240, 100, 40);
+    toneLabel.setBounds(760, getHeight() - 240, 100, 40);
     toneSelect.setBounds(850, getHeight() - 240, 150, 40);
     yearLabel.setBounds(500, getHeight() - 180, 100, 40);
     yearEditor.setBounds(600, getHeight() - 180, 150, 40);
     songLabel.setBounds(500, getHeight() - 120, 100, 40);
-    songEditor.setBounds(600, getHeight() - 120, 150, 40);
+    songEditor.setBounds(600, getHeight() - 120, 400, 40);
     soundLabel.setBounds(500, getHeight() - 60, 100, 40);
-    soundEditor.setBounds(600, getHeight() - 60, 150, 40);
+    soundEditor.setBounds(600, getHeight() - 60, 400, 40);
     closeButton.setBounds(getWidth() - 100, 10, 80, 30);
     fileSelectButton.setBounds(getWidth() - 100, 50, 80, 30);
     splitButton.setBounds(getWidth() - 100, 90, 80, 30);
