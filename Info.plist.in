@@ -6,11 +6,11 @@
     <key>CFBundleIconFile</key>
     <string>@MY_ICON_NAME@.icns</string>
     <key>CFBundleIdentifier</key>
-    <string>bressani.dev.octasplit</string>
+    <string>bressani.dev.waveglitch</string>
     <key>CFBundleName</key>
     <string>@MY_APP_NAME@</string>
     <key>CFBundleDisplayName</key>
-    <string>OctaSplit</string>
+    <string>WaveGlitch</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleSignature</key>

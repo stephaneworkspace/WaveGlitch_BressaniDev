@@ -59,7 +59,7 @@ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_ARCHITECTURES="x86_64" ..
 cmake --build . --config Release
 
 mkdir bin
-cp -rf ./WaveGlitch-BressaniDev_artefacts/Release/WaveGlitch-BressaniDev.app ./bin/WaveGlitch.app
+cp -rf ./WaveGlitch_BressaniDev_artefacts/Release/WaveGlitch.app ./bin/WaveGlitch.app
 cd bin
 mkdir installer
 create-dmg 'WaveGlitch.app' ./installer
