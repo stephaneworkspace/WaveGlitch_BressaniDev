@@ -61,6 +61,10 @@ private:
     Label durationLabel;
     Label bpmLabel;
     TextEditor bpmEditor;
+    Label toneLabel;
+    TextEditor toneEditor;
+    Label yearLabel;
+    TextEditor yearEditor;
     Label barLabel;
     TextEditor barEditor;
     TextButton closeButton;

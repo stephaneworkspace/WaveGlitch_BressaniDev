@@ -49,6 +49,10 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     addAndMakeVisible(durationLabel);
     addAndMakeVisible(bpmLabel);
     addAndMakeVisible(bpmEditor);
+    addAndMakeVisible(toneLabel);
+    addAndMakeVisible(toneEditor);
+    addAndMakeVisible(yearLabel);
+    addAndMakeVisible(yearEditor);
     addAndMakeVisible(barLabel);
     addAndMakeVisible(barEditor);
     addAndMakeVisible(closeButton);
@@ -78,6 +82,22 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     bpmEditor.setInputRestrictions(0, "0123456789."); // Autoriser uniquement les chiffres et le point.
     bpmEditor.setJustification(juce::Justification::centred);
     bpmEditor.setText("120.0");
+
+    toneLabel.setFont (juce::Font (30.0f));
+    toneLabel.setText("Tone: ", juce::dontSendNotification);
+    toneLabel.setJustificationType (juce::Justification::centred);
+    toneEditor.setFont (juce::Font (30.0f));
+    toneEditor.setInputRestrictions(2, "ABCDEFGbd"); // Autoriser uniquement les chiffres et le point.
+    toneEditor.setJustification(juce::Justification::centred);
+    toneEditor.setText("C");
+
+    yearLabel.setFont (juce::Font (30.0f));
+    yearLabel.setText("Year: ", juce::dontSendNotification);
+    yearLabel.setJustificationType (juce::Justification::centred);
+    yearEditor.setFont (juce::Font (30.0f));
+    yearEditor.setInputRestrictions(4, "0123456789"); // Autoriser uniquement les chiffres et le point.
+    yearEditor.setJustification(juce::Justification::centred);
+    yearEditor.setText("2023");
 
     barLabel.setFont (juce::Font (30.0f));
     barLabel.setText("Bar: ", juce::dontSendNotification);
@@ -143,10 +163,10 @@ void MainComponent::resized()
     //titleLabel.setBounds((getWidth() - 200) / 2, 20 /*(getHeight() - 30)*/ / 2, 400, 30);
     bpmLabel.setBounds(500, getHeight() - 240, 100, 40);
     bpmEditor.setBounds(600, getHeight() - 240, 150, 40);
-
-
-    //bpmLabel.setBounds(500, getHeight() - 120, 100, 40);
-    //bpmEditor.setBounds(600, getHeight() - 120, 150, 40);
+    toneLabel.setBounds(500, getHeight() - 180, 100, 40);
+    toneEditor.setBounds(600, getHeight() - 180, 150, 40);
+    yearLabel.setBounds(500, getHeight() - 120, 100, 40);
+    yearEditor.setBounds(600, getHeight() - 120, 150, 40);
     barLabel.setBounds(500, getHeight() - 60, 100, 40);
     barEditor.setBounds(600, getHeight() - 60, 150, 40);
     closeButton.setBounds(getWidth() - 100, 10, 80, 30);
