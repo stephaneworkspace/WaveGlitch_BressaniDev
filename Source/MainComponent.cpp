@@ -175,10 +175,10 @@ void MainComponent::resized()
     //titleLabel.setBounds((getWidth() - 200) / 2, 20 /*(getHeight() - 30)*/ / 2, 400, 30);
     bpmLabel.setBounds(500, getHeight() - 240, 100, 40);
     bpmEditor.setBounds(600, getHeight() - 240, 150, 40);
-    toneLabel.setBounds(500, getHeight() - 180, 100, 40);
-    toneSelect.setBounds(600, getHeight() - 180, 150, 40);
-    yearLabel.setBounds(500, getHeight() - 120, 100, 40);
-    yearEditor.setBounds(600, getHeight() - 120, 150, 40);
+    toneLabel.setBounds(750, getHeight() - 240, 100, 40);
+    toneSelect.setBounds(850, getHeight() - 240, 150, 40);
+    yearLabel.setBounds(500, getHeight() - 180, 100, 40);
+    yearEditor.setBounds(600, getHeight() - 180, 150, 40);
     barLabel.setBounds(500, getHeight() - 60, 100, 40);
     barEditor.setBounds(600, getHeight() - 60, 150, 40);
     closeButton.setBounds(getWidth() - 100, 10, 80, 30);
