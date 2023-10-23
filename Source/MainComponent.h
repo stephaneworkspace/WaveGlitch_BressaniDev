@@ -67,8 +67,10 @@ private:
     ComboBox toneSelect;
     Label yearLabel;
     TextEditor yearEditor;
-    Label barLabel;
-    TextEditor barEditor;
+    Label songLabel;
+    TextEditor songEditor;
+    Label soundLabel;
+    TextEditor soundEditor;
     TextButton closeButton;
     TextButton splitButton;
     TextButton fileSelectButton;

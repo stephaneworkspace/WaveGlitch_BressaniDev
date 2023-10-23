@@ -9,7 +9,11 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
                                  fileSelectButton("Select .wav file"),
                                  aboutButton("About"),
                                  bpmEditor(),
-                                 barEditor() {
+                                 toneSelect(),
+                                 yearEditor(),
+                                 songEditor(),
+                                 soundEditor()
+                                 {
     // Open .env
     Misc misc;
     appName = misc.getAppName();
@@ -39,7 +43,9 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     }
 
     bpmEditor.addListener(this);
-    barEditor.addListener(this);
+    yearEditor.addListener(this);
+    songEditor.addListener(this);
+    soundEditor.addListener(this);
     Component::getTopLevelComponent()->addKeyListener(this);
 
     addAndMakeVisible(fileLabel);
@@ -53,8 +59,10 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     addAndMakeVisible(toneSelect);
     addAndMakeVisible(yearLabel);
     addAndMakeVisible(yearEditor);
-    addAndMakeVisible(barLabel);
-    addAndMakeVisible(barEditor);
+    addAndMakeVisible(songLabel);
+    addAndMakeVisible(songEditor);
+    addAndMakeVisible(soundLabel);
+    addAndMakeVisible(soundEditor);
     addAndMakeVisible(closeButton);
     addAndMakeVisible(splitButton);
     addAndMakeVisible(fileSelectButton);
@@ -73,7 +81,6 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     channelsLabel.setBounds(10, getHeight() - 120, getWidth() - 20, 20);
 
     fileLabel.setBounds(10, getHeight() - 30, getWidth() - 20, 20);
-
 
     bpmLabel.setFont (juce::Font (30.0f));
     bpmLabel.setText("Bpm: ", juce::dontSendNotification);
@@ -101,7 +108,6 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     toneSelect.addItem("B", 12);
     toneSelect.setSelectedId(1); // TODO .env
 
-
     yearLabel.setFont (juce::Font (30.0f));
     yearLabel.setText("Year: ", juce::dontSendNotification);
     yearLabel.setJustificationType (juce::Justification::centred);
@@ -110,13 +116,19 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     yearEditor.setJustification(juce::Justification::centred);
     yearEditor.setText("2023");
 
-    barLabel.setFont (juce::Font (30.0f));
-    barLabel.setText("Bar: ", juce::dontSendNotification);
-    barLabel.setJustificationType (juce::Justification::centred);
-    barEditor.setFont (juce::Font (30.0f));
-    barEditor.setInputRestrictions(0, "0123456789"); // Autoriser uniquement les chiffres et le point.
-    barEditor.setJustification(juce::Justification::centred);
-    barEditor.setText("32");
+    songLabel.setFont (juce::Font (30.0f));
+    songLabel.setText("Song: ", juce::dontSendNotification);
+    songLabel.setJustificationType (juce::Justification::centred);
+    songEditor.setFont (juce::Font (30.0f));
+    songEditor.setJustification(juce::Justification::left);
+    songEditor.setText("");
+
+    soundLabel.setFont (juce::Font (30.0f));
+    soundLabel.setText("Sound: ", juce::dontSendNotification);
+    soundLabel.setJustificationType (juce::Justification::centred);
+    soundEditor.setFont (juce::Font (30.0f));
+    soundEditor.setJustification(juce::Justification::left);
+    soundEditor.setText("");
 
     closeButton.setBounds(getWidth() - 100, 10, 80, 30);
     closeButton.onClick = [this] { juce::JUCEApplication::getInstance()->systemRequestedQuit(); };
@@ -179,8 +191,10 @@ void MainComponent::resized()
     toneSelect.setBounds(850, getHeight() - 240, 150, 40);
     yearLabel.setBounds(500, getHeight() - 180, 100, 40);
     yearEditor.setBounds(600, getHeight() - 180, 150, 40);
-    barLabel.setBounds(500, getHeight() - 60, 100, 40);
-    barEditor.setBounds(600, getHeight() - 60, 150, 40);
+    songLabel.setBounds(500, getHeight() - 120, 100, 40);
+    songEditor.setBounds(600, getHeight() - 120, 150, 40);
+    soundLabel.setBounds(500, getHeight() - 60, 100, 40);
+    soundEditor.setBounds(600, getHeight() - 60, 150, 40);
     closeButton.setBounds(getWidth() - 100, 10, 80, 30);
     fileSelectButton.setBounds(getWidth() - 100, 50, 80, 30);
     splitButton.setBounds(getWidth() - 100, 90, 80, 30);
@@ -270,7 +284,7 @@ bool MainComponent::keyPressed(const KeyPress &key, Component *originatingCompon
 
 void MainComponent::textEditorTextChanged (TextEditor& editor)
 {
-    splitButton.setEnabled(!bpmEditor.getText().isEmpty() && !barEditor.getText().isEmpty());
+    splitButton.setEnabled(!bpmEditor.getText().isEmpty() && !soundEditor.getText().isEmpty()); // TODO ajouter le reste
 }
 
 void MainComponent::fileSelectButtonClicked()
