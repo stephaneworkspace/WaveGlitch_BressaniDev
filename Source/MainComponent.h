@@ -26,29 +26,18 @@ class MainComponent: public Component,
                      private Timer {
 public:
     MainComponent();
-
     ~MainComponent() override;
-
     void paint(Graphics &g) override;
-
     void update();
-
     void resized() override;
-
     bool isInterestedInFileDrag(const StringArray &files) override;
-
     void filesDropped(const StringArray &files, int x, int y) override;
-
     bool keyPressed(const KeyPress &key, Component *originatingComponent) override;
-
     void textEditorTextChanged(TextEditor &editor) override;
-
+    void rootFolderSelectButtonClicked();
     void fileSelectButtonClicked();
-
     void processingButtonClicked();
-
     void aboutButtonClicked();
-
 private:
     void timerCallback() override;
     void loadPNG(const String& path);

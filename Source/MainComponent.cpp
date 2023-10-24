@@ -131,7 +131,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     closeButton.setBounds(getWidth() - 100, 10, 80, 30);
     closeButton.onClick = [this] { juce::JUCEApplication::getInstance()->systemRequestedQuit(); };
     chooseButton.setBounds(getWidth() - 100, 50, 80, 30);
-    chooseButton.onClick = [this] { processingButtonClicked(); };
+    chooseButton.onClick = [this] { rootFolderSelectButtonClicked(); };
     fileSelectButton.setButtonText("Select .wav file");
     fileSelectButton.setBounds(getWidth() - 100, 90, 80, 30);
     fileSelectButton.onClick = [this] { fileSelectButtonClicked(); };
@@ -295,7 +295,22 @@ void MainComponent::fileSelectButtonClicked()
         auto file = chooser.getResult();
         StringArray files;
         files.add(file.getFullPathName());
-        filesDropped(files, 0, 0); // Vous pouvez ajuster les coordonnées x et y si nécessair
+        filesDropped(files, 0, 0); // Vous pouvez ajuster les coordonnées x et y si nécessaire
+    }
+}
+
+void MainComponent::rootFolderSelectButtonClicked()
+{
+    FileChooser chooser("Select a root folder for save your process",
+                        File{},               // Dossier de départ
+                        "",                   // Types de fichiers à afficher (laissez vide pour tous les fichiers)
+                        true);                // Use native dialog box?
+
+    if (chooser.browseForDirectory())
+    {
+        auto folder = chooser.getResult();
+        String folderPath = "Root folder: " + folder.getFullPathName();
+        rootLabel.setText(folderPath, juce::dontSendNotification);
     }
 }
 
