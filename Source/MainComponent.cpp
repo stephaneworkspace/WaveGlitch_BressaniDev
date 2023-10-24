@@ -148,9 +148,26 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     options.osxLibrarySubFolder = "Preferences";
     props = std::make_unique<PropertiesFile>(options);
     // get values
+    String getRoot = props->getValue("root");
+    if (!getRoot.isEmpty()) {
+        rootFolder = getRoot;
+        rootLabel.setText("Root folder: " + getRoot);
+    }
     String getBpm = props->getValue("bpm");
     if (!getBpm.isEmpty()) {
         bpmEditor.setText(getBpm);
+    }
+    String getTone = props->getValue("tone");
+    if (!getTone.isEmpty()) {
+        toneSelect.setText(getTone);
+    }
+    String getYear = props->getValue("year");
+    if (!getYear.isEmpty()) {
+        yearEditor.setText(getYear);
+    }
+    String getSong = props->getValue("song");
+    if (!getSong.isEmpty()) {
+        songEditor.setText(getSong);
     }
 }
 
@@ -340,7 +357,11 @@ void MainComponent::rootFolderSelectButtonClicked()
 void MainComponent::processingButtonClicked()
 {
     // Save default value
+    props->setValue("root", rootFolder);
     props->setValue("bpm", bpmEditor.getText());
+    props->setValue("tone", toneSelect.getText());
+    props->setValue("year", yearEditor.getText());
+    props->setValue("song", songEditor.getText());
     props->saveIfNeeded();
 
     /*
