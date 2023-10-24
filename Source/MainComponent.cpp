@@ -69,19 +69,14 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     addAndMakeVisible(fileSelectButton);
     addAndMakeVisible(aboutButton);
 
-    //titleLabel.setFont(juce::Font (32.0f));
-    //titleLabel.setJustificationType (juce::Justification::centred);
-    //titleLabel.setText("Octatrack wav Split", juce::dontSendNotification);
-    //titleLabel.setBounds(10, 20, getWidth() - 20, 40);
-
+    fileLabel.setBounds(10, getHeight() - 60, getWidth() - 20, 20);
     durationLabel.setText("", juce::dontSendNotification);
-    durationLabel.setBounds(10, getHeight() - 60, getWidth() - 20, 20);
+    durationLabel.setBounds(10, getHeight() - 90, getWidth() - 20, 20);
     sampleRateLabel.setText("", juce::dontSendNotification);
-    sampleRateLabel.setBounds(10, getHeight() - 90, getWidth() - 20, 20);
+    sampleRateLabel.setBounds(10, getHeight() - 120, getWidth() - 20, 20);
     channelsLabel.setText("", juce::dontSendNotification);
-    channelsLabel.setBounds(10, getHeight() - 120, getWidth() - 20, 20);
+    channelsLabel.setBounds(10, getHeight() - 150, getWidth() - 20, 20);
 
-    fileLabel.setBounds(10, getHeight() - 30, getWidth() - 20, 20);
 
     bpmLabel.setFont (juce::Font (30.0f));
     bpmLabel.setText("Bpm: ", juce::dontSendNotification);
@@ -183,11 +178,10 @@ void MainComponent::resized()
     if (svgDrawable3 != nullptr) {
         svgDrawable3->setBounds(getLocalBounds().reduced(10));
     }
-    fileLabel.setBounds(10, getHeight() - 30, getWidth() - 10, 20);
-    channelsLabel.setBounds(10, getHeight() -60, getWidth() - 10, 20);
-    sampleRateLabel.setBounds(10, getHeight() -90, getWidth() - 10, 20);
-    durationLabel.setBounds(10, getHeight() -120, getWidth() - 10, 20);
-    //titleLabel.setBounds((getWidth() - 200) / 2, 20 /*(getHeight() - 30)*/ / 2, 400, 30);
+    fileLabel.setBounds(10, getHeight() - 60, getWidth() - 10, 20);
+    channelsLabel.setBounds(10, getHeight() -90, getWidth() - 10, 20);
+    sampleRateLabel.setBounds(10, getHeight() -120, getWidth() - 10, 20);
+    durationLabel.setBounds(10, getHeight() -150, getWidth() - 10, 20);
     bpmLabel.setBounds(500, getHeight() - 240, 100, 40);
     bpmEditor.setBounds(600, getHeight() - 240, 150, 40);
     toneLabel.setBounds(760, getHeight() - 240, 100, 40);
@@ -214,7 +208,6 @@ bool MainComponent::isInterestedInFileDrag(const StringArray &files) {
 }
 
 void MainComponent::filesDropped(const StringArray &files, int x, int y) {
-    /*
     for(auto &file : files) {
         if (file.endsWith(".wav")) {
             // Vérification si le fichier est valide
@@ -274,7 +267,7 @@ void MainComponent::filesDropped(const StringArray &files, int x, int y) {
                 }
             }
         }
-    }*/
+    }
 }
 
 bool MainComponent::keyPressed(const KeyPress &key, Component *originatingComponent) {

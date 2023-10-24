@@ -13,6 +13,7 @@
 #include "Misc.h"
 #include "MyObjCWrapper.h"
 #include "CustomLookAndFeel.h"
+#include "AudioFileProperties.h"
 
 using namespace std;
 using namespace juce;
