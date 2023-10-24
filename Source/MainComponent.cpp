@@ -4,6 +4,7 @@
 #include "MainComponent.h"
 
 MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
+                                 rootLabel("", "No root folder defined..."),
                                  closeButton("Close"),
                                  chooseButton("Choose root export folder"),
                                  processingButton("Processing"),
@@ -49,6 +50,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     soundEditor.addListener(this);
     Component::getTopLevelComponent()->addKeyListener(this);
 
+    addAndMakeVisible(rootLabel);
     addAndMakeVisible(fileLabel);
     addAndMakeVisible(channelsLabel);
     addAndMakeVisible(sampleRateLabel);
@@ -69,6 +71,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     addAndMakeVisible(fileSelectButton);
     addAndMakeVisible(aboutButton);
 
+    rootLabel.setBounds(10, getHeight() - 30, getWidth() - 20, 20);
     fileLabel.setBounds(10, getHeight() - 60, getWidth() - 20, 20);
     durationLabel.setText("", juce::dontSendNotification);
     durationLabel.setBounds(10, getHeight() - 90, getWidth() - 20, 20);
@@ -76,7 +79,6 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     sampleRateLabel.setBounds(10, getHeight() - 120, getWidth() - 20, 20);
     channelsLabel.setText("", juce::dontSendNotification);
     channelsLabel.setBounds(10, getHeight() - 150, getWidth() - 20, 20);
-
 
     bpmLabel.setFont (juce::Font (30.0f));
     bpmLabel.setText("Bpm: ", juce::dontSendNotification);
@@ -178,6 +180,7 @@ void MainComponent::resized()
     if (svgDrawable3 != nullptr) {
         svgDrawable3->setBounds(getLocalBounds().reduced(10));
     }
+    rootLabel.setBounds(10, getHeight() - 30, getWidth() - 10, 20);
     fileLabel.setBounds(10, getHeight() - 60, getWidth() - 10, 20);
     channelsLabel.setBounds(10, getHeight() -90, getWidth() - 10, 20);
     sampleRateLabel.setBounds(10, getHeight() -120, getWidth() - 10, 20);

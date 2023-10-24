@@ -61,6 +61,7 @@ private:
     Label channelsLabel;
     Label sampleRateLabel;
     Label durationLabel;
+    Label rootLabel;
     Label bpmLabel;
     TextEditor bpmEditor;
     Label toneLabel;
