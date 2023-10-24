@@ -140,11 +140,24 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     aboutButton.setButtonText("About");
     aboutButton.setBounds(getWidth() - 100, 170, 80, 30);
     aboutButton.onClick = [this] { aboutButtonClicked(); };
+
+    // Load datas
+    options.applicationName = "WaveGlitch";
+    options.folderName = "WaveGlitch";
+    options.filenameSuffix = ".settings";
+    options.osxLibrarySubFolder = "Preferences";
+    props = std::make_unique<PropertiesFile>(options);
+    // get values
+    String getBpm = props->getValue("bpm");
+    if (!getBpm.isEmpty()) {
+        bpmEditor.setText(getBpm);
+    }
 }
 
 MainComponent::~MainComponent() {
     Component::getTopLevelComponent()->removeKeyListener(this);
     toneSelect.setLookAndFeel(nullptr);
+    props.reset();
 }
 
 void MainComponent::paint(Graphics& g)
@@ -230,7 +243,7 @@ void MainComponent::filesDropped(const StringArray &files, int x, int y) {
                                                       "Invalid file",
                                                       "The selected file is not a valid WAV file.");
                     fileLabel.setText ("No file loaded...", dontSendNotification);
-                    this->file = "";
+                    fileWav = "";
                     durationLabel.setText ("", dontSendNotification);
                     sampleRateLabel.setText ("", dontSendNotification);
                     channelsLabel.setText ("", dontSendNotification);
@@ -244,7 +257,7 @@ void MainComponent::filesDropped(const StringArray &files, int x, int y) {
                                                           "Invalid file",
                                                           "The selected file is not a valid WAV file.");
                         fileLabel.setText ("No file loaded...", dontSendNotification);
-                        this->file = "";
+                        fileWav = "";
                         durationLabel.setText ("", dontSendNotification);
                         sampleRateLabel.setText ("", dontSendNotification);
                         channelsLabel.setText ("", dontSendNotification);
@@ -256,7 +269,7 @@ void MainComponent::filesDropped(const StringArray &files, int x, int y) {
                     // Votre traitement du fichier ici...
                     try {
                         AudioFileProperties afp(file.toStdString());
-                        this->file = file;
+                        fileWav = file;
                         fileLabel.setText(file, juce::dontSendNotification);
                         channelsLabel.setText("Channels: " + juce::String(afp.getChannels()) , juce::dontSendNotification);
                         sampleRateLabel.setText("Sample rate: " + juce::String(afp.getSampleRate()) + " @ " + juce::String(afp.getPcmBitDepth()) + "bits PCM", juce::dontSendNotification);
@@ -268,7 +281,7 @@ void MainComponent::filesDropped(const StringArray &files, int x, int y) {
                                                           "Error",
                                                           "Can't open file.");
                         fileLabel.setText ("No file loaded...", dontSendNotification);
-                        this->file = "";
+                        fileWav = "";
                     }
                 }
             }
@@ -290,8 +303,8 @@ void MainComponent::textEditorTextChanged (TextEditor& editor)
                                 && !yearEditor.getText().isEmpty()
                                 && !songEditor.getText().isEmpty()
                                 && !soundEditor.getText().isEmpty()
-                                && !this->file.isEmpty()
-                                && !this->rootFolder.isEmpty()
+                                && !fileWav.isEmpty()
+                                && !rootFolder.isEmpty()
     );
 }
 
@@ -318,14 +331,18 @@ void MainComponent::rootFolderSelectButtonClicked()
     if (chooser.browseForDirectory())
     {
         auto folder = chooser.getResult();
-        this->rootFolder = folder.getFullPathName();
-        String folderPath = "Root folder: " + this->rootFolder;
+        rootFolder = folder.getFullPathName();
+        String folderPath = "Root folder: " + rootFolder;
         rootLabel.setText(folderPath, juce::dontSendNotification);
     }
 }
 
 void MainComponent::processingButtonClicked()
 {
+    // Save default value
+    props->setValue("bpm", bpmEditor.getText());
+    props->saveIfNeeded();
+
     /*
     if (bpmEditor.getText().isEmpty() || barEditor.getText().isEmpty()) {
         return;

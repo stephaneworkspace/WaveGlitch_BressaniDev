@@ -72,7 +72,9 @@ private:
     unique_ptr<Drawable> svgDrawable3;
     float rotationAngle = 0.0f;
 
-    String file;
+    PropertiesFile::Options options;
+    std::unique_ptr<PropertiesFile> props;
+    String fileWav;
     String rootFolder;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
