@@ -104,6 +104,8 @@ if (APPLE)
             Source/Main.cpp
             Source/WAVPlayer.h
             Source/WAVPlayer.cpp
+            Source/AudioFileProperties.cpp
+            Source/AudioFileProperties.h
             ${APP_ICON_MACOSX}
     )
 else ()
@@ -125,6 +127,8 @@ else ()
             Source/Main.cpp
             Source/WAVPlayer.h
             Source/WAVPlayer.cpp
+            Source/AudioFileProperties.cpp
+            Source/AudioFileProperties.h
     )
 endif ()
 

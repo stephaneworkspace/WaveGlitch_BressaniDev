@@ -57,7 +57,6 @@ private:
     string appName;
     string appVersion;
     Label fileLabel;
-    //Label titleLabel;
     Label channelsLabel;
     Label sampleRateLabel;
     Label durationLabel;

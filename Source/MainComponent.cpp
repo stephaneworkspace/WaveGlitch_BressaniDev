@@ -50,7 +50,6 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     Component::getTopLevelComponent()->addKeyListener(this);
 
     addAndMakeVisible(fileLabel);
-    //addAndMakeVisible(titleLabel);
     addAndMakeVisible(channelsLabel);
     addAndMakeVisible(sampleRateLabel);
     addAndMakeVisible(durationLabel);
