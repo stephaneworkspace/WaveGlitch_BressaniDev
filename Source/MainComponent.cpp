@@ -112,7 +112,15 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     yearEditor.setFont (juce::Font (30.0f));
     yearEditor.setInputRestrictions(4, "0123456789"); // Autoriser uniquement les chiffres et le point.
     yearEditor.setJustification(juce::Justification::centred);
-    yearEditor.setText("2023");
+
+    auto today = std::chrono::system_clock::now();
+    auto days_since_epoch = std::chrono::duration_cast<std::chrono::days>(today.time_since_epoch());
+    std::chrono::sys_days sd{days_since_epoch};
+    auto ymd = std::chrono::year_month_day{sd};
+    auto year = ymd.year();
+    int yearInt = static_cast<int>(year);
+    std::string yearString = std::to_string(yearInt);
+    yearEditor.setText(yearString);
 
     songLabel.setFont (juce::Font (30.0f));
     songLabel.setText("Song: ", juce::dontSendNotification);

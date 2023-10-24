@@ -8,6 +8,8 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include <iostream>
+#include <chrono>
 #include <juce_audio_basics/juce_audio_basics.h>
 #include <juce_gui_basics/juce_gui_basics.h>
 #include "Misc.h"
