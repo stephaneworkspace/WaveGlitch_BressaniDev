@@ -230,6 +230,7 @@ void MainComponent::filesDropped(const StringArray &files, int x, int y) {
                                                       "Invalid file",
                                                       "The selected file is not a valid WAV file.");
                     fileLabel.setText ("No file loaded...", dontSendNotification);
+                    this->file = "";
                     durationLabel.setText ("", dontSendNotification);
                     sampleRateLabel.setText ("", dontSendNotification);
                     channelsLabel.setText ("", dontSendNotification);
@@ -243,6 +244,7 @@ void MainComponent::filesDropped(const StringArray &files, int x, int y) {
                                                           "Invalid file",
                                                           "The selected file is not a valid WAV file.");
                         fileLabel.setText ("No file loaded...", dontSendNotification);
+                        this->file = "";
                         durationLabel.setText ("", dontSendNotification);
                         sampleRateLabel.setText ("", dontSendNotification);
                         channelsLabel.setText ("", dontSendNotification);
@@ -254,7 +256,7 @@ void MainComponent::filesDropped(const StringArray &files, int x, int y) {
                     // Votre traitement du fichier ici...
                     try {
                         AudioFileProperties afp(file.toStdString());
-
+                        this->file = file;
                         fileLabel.setText(file, juce::dontSendNotification);
                         channelsLabel.setText("Channels: " + juce::String(afp.getChannels()) , juce::dontSendNotification);
                         sampleRateLabel.setText("Sample rate: " + juce::String(afp.getSampleRate()) + " @ " + juce::String(afp.getPcmBitDepth()) + "bits PCM", juce::dontSendNotification);
@@ -266,6 +268,7 @@ void MainComponent::filesDropped(const StringArray &files, int x, int y) {
                                                           "Error",
                                                           "Can't open file.");
                         fileLabel.setText ("No file loaded...", dontSendNotification);
+                        this->file = "";
                     }
                 }
             }
@@ -283,7 +286,13 @@ bool MainComponent::keyPressed(const KeyPress &key, Component *originatingCompon
 
 void MainComponent::textEditorTextChanged (TextEditor& editor)
 {
-    processingButton.setEnabled(!bpmEditor.getText().isEmpty() && !soundEditor.getText().isEmpty()); // TODO ajouter le reste
+    processingButton.setEnabled(!bpmEditor.getText().isEmpty()
+                                && !yearEditor.getText().isEmpty()
+                                && !songEditor.getText().isEmpty()
+                                && !soundEditor.getText().isEmpty()
+                                && !this->file.isEmpty()
+                                && !this->rootFolder.isEmpty()
+    );
 }
 
 void MainComponent::fileSelectButtonClicked()
@@ -309,7 +318,8 @@ void MainComponent::rootFolderSelectButtonClicked()
     if (chooser.browseForDirectory())
     {
         auto folder = chooser.getResult();
-        String folderPath = "Root folder: " + folder.getFullPathName();
+        this->rootFolder = folder.getFullPathName();
+        String folderPath = "Root folder: " + this->rootFolder;
         rootLabel.setText(folderPath, juce::dontSendNotification);
     }
 }
