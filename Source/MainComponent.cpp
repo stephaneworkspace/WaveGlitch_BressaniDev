@@ -151,7 +151,8 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     String getRoot = props->getValue("root");
     if (!getRoot.isEmpty()) {
         rootFolder = getRoot;
-        rootLabel.setText("Root folder: " + getRoot);
+        String folderPath = "Root folder: " + rootFolder;
+        rootLabel.setText(folderPath, juce::dontSendNotification);
     }
     String getBpm = props->getValue("bpm");
     if (!getBpm.isEmpty()) {
