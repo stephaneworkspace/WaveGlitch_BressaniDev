@@ -408,7 +408,7 @@ void MainComponent::processingButtonClicked()
             // cout << "Le répertoire existe déjà!" << endl;
         }
         String fileInput = fileWav;
-        player = std::make_unique<WAVPlayer>(fileInput, folderComplete);
+        player = std::make_unique<WAVPlayer>(fileInput, folderComplete, bpmEditor.getText().getFloatValue());
         player->setWrite(true);
         player->setBarFraction(WAVPlayer::BarFraction::Bar);
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
@@ -426,7 +426,7 @@ void MainComponent::processingButtonClicked()
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
         player->setBarFraction(WAVPlayer::BarFraction::OneHundredTwentyEighth);
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
-        player->setWrite(false);
+        // player->setWrite(false);
     } catch (const fsys::filesystem_error& e) {
         // cerr << "Erreur du système de fichiers: " << e.what() << endl;
         String msg = "Error attempting to create directories: ";

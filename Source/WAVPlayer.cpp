@@ -4,13 +4,14 @@
 
 #include "WAVPlayer.h"
 
-WAVPlayer::WAVPlayer(String inputFile, String folderConcat) {
+WAVPlayer::WAVPlayer(String inputFile, String folderConcat, float bpm) {
+    bpmFile = bpm;
     folderComplete = folderConcat;
 
     // read info
     file = sf_open(inputFile.toStdString().c_str(), SFM_READ, &info);
     if (!file) {
-        throw std::runtime_error("Cannot open file: " + inputFile.toStdString()); // TODO catch
+        throw std::runtime_error("Cannot open file: " + inputFile.toStdString());
     }
 
     // lecture
@@ -46,7 +47,7 @@ void WAVPlayer::releaseResources() {
 void WAVPlayer::setBarFraction(BarFraction fraction) {
     currentBarFraction = fraction;
     // Calculer la taille en échantillons de la fraction de mesure
-    double durationInSeconds = (60.0 / 180.0) / static_cast<double>(fraction);
+    double durationInSeconds = (60.0 / bpmFile) / static_cast<double>(fraction);
     barFractionSamples = (int) (sampleRate * durationInSeconds);
     barFractionPlayHead = 0;
 }
