@@ -297,6 +297,15 @@ void MainComponent::filesDropped(const StringArray &files, int x, int y) {
                         AudioFileProperties afp(file.toStdString());
                         fileWav = file.toStdString();
                         fileLabel.setText(file, juce::dontSendNotification);
+
+                        // Enable processingButton if
+                        processingButton.setEnabled(!bpmEditor.getText().isEmpty()
+                                                    && !yearEditor.getText().isEmpty()
+                                                    && !songEditor.getText().isEmpty()
+                                                    && !soundEditor.getText().isEmpty()
+                                                    && !fileWav.empty()
+                                                    && !rootFolder.empty());
+
                         channelsLabel.setText("Channels: " + juce::String(afp.getChannels()) , juce::dontSendNotification);
                         sampleRateLabel.setText("Sample rate: " + juce::String(afp.getSampleRate()) + " @ " + juce::String(afp.getPcmBitDepth()) + "bits PCM", juce::dontSendNotification);
                         durationLabel.setText("Duration: " + juce::String(afp.getDuration(), 2) + " seconds", juce::dontSendNotification);
@@ -360,6 +369,14 @@ void MainComponent::rootFolderSelectButtonClicked()
         rootFolder = folder.getFullPathName().toStdString();
         String folderPath = "Root folder: " + rootFolder;
         rootLabel.setText(folderPath, juce::dontSendNotification);
+
+        // Enable processingButton if
+        processingButton.setEnabled(!bpmEditor.getText().isEmpty()
+                                    && !yearEditor.getText().isEmpty()
+                                    && !songEditor.getText().isEmpty()
+                                    && !soundEditor.getText().isEmpty()
+                                    && !fileWav.empty()
+                                    && !rootFolder.empty());
     }
 }
 
@@ -384,15 +401,11 @@ void MainComponent::processingButtonClicked()
 
     // Create folder
     try {
-        /*
-        if(createDirectories())
-        {
-            cout << "Répertoires créés avec succès!" << endl;
+        if(createDirectories()) {
+            // cout << "Répertoires créés avec succès!" << endl;
+        } else {
+            // cout << "Le répertoire existe déjà!" << endl;
         }
-        else
-        {
-            cout << "Le répertoire existe déjà!" << endl;
-        }*/
     } catch (const fsys::filesystem_error& e) {
         // cerr << "Erreur du système de fichiers: " << e.what() << endl;
         String msg = "Error attempting to create directories: ";
