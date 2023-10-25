@@ -399,6 +399,8 @@ void MainComponent::processingButtonClicked()
     || fileWav.empty()
     || rootFolder.empty())
         return;
+    setMouseCursor(MouseCursor::WaitCursor);
+    updateMouseCursor();
 
     // Create folder
     try {
@@ -426,6 +428,11 @@ void MainComponent::processingButtonClicked()
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
         player->setBarFraction(WAVPlayer::BarFraction::OneHundredTwentyEighth);
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+        setMouseCursor(MouseCursor::NormalCursor);
+        updateMouseCursor();
+        AlertWindow::showMessageBoxAsync (AlertWindow::InfoIcon,
+                                          "Processing complete",
+                                          "Files are written to the disk !");
         // player->setWrite(false);
     } catch (const fsys::filesystem_error& e) {
         // cerr << "Erreur du système de fichiers: " << e.what() << endl;

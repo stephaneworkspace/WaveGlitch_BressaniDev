@@ -64,44 +64,22 @@ void WAVPlayer::setWrite(bool sw) {
 }
 
 void WAVPlayer::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill) {
-    auto numInputChannels = audioBuffer.getNumChannels();
-    auto numOutputChannels = bufferToFill.buffer->getNumChannels();
+    if (!sw_write) {
+        auto numInputChannels = audioBuffer.getNumChannels();
+        auto numOutputChannels = bufferToFill.buffer->getNumChannels();
 
-    int outputStartSample = bufferToFill.startSample;
-    int outputNumSamples = bufferToFill.numSamples;
+        int outputStartSample = bufferToFill.startSample;
+        int outputNumSamples = bufferToFill.numSamples;
 
-    bufferToFill.clearActiveBufferRegion();
+        bufferToFill.clearActiveBufferRegion();
 
-    if (currentPlaybackMode == CLASSIC) {
-        while (outputNumSamples > 0) {
-            int samplesThisTime = jmin(outputNumSamples, barFractionSamples - barFractionPlayHead);
-            for (auto channel = 0; channel < numOutputChannels; ++channel) {
-                bufferToFill.buffer->copyFrom(channel,
-                                              outputStartSample,
-                                              audioBuffer,
-                                              channel % numInputChannels,
-                                              barFractionPlayHead,
-                                              samplesThisTime);
-            }
-            outputStartSample += samplesThisTime;
-            outputNumSamples -= samplesThisTime;
-            barFractionPlayHead += samplesThisTime;
-
-            if (barFractionPlayHead >= barFractionSamples) {
-                barFractionPlayHead = 0; // Retour au début de la fraction de mesure
-            }
-        }
-    } else {
-        // Copiez les données du preparedBuffer au lieu de audioBuffer
-        while (outputNumSamples > 0) {
-            int preparedBufferLength = preparedBuffer.getNumSamples();
+        if (currentPlaybackMode == CLASSIC) {
             while (outputNumSamples > 0) {
-                int samplesAvailable = preparedBufferLength - barFractionPlayHead;
-                int samplesThisTime = jmin(outputNumSamples, samplesAvailable);
+                int samplesThisTime = jmin(outputNumSamples, barFractionSamples - barFractionPlayHead);
                 for (auto channel = 0; channel < numOutputChannels; ++channel) {
                     bufferToFill.buffer->copyFrom(channel,
                                                   outputStartSample,
-                                                  preparedBuffer,
+                                                  audioBuffer,
                                                   channel % numInputChannels,
                                                   barFractionPlayHead,
                                                   samplesThisTime);
@@ -110,8 +88,32 @@ void WAVPlayer::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFi
                 outputNumSamples -= samplesThisTime;
                 barFractionPlayHead += samplesThisTime;
 
-                if (barFractionPlayHead >= preparedBufferLength) {
-                    barFractionPlayHead = 0; // Bouclage du buffer
+                if (barFractionPlayHead >= barFractionSamples) {
+                    barFractionPlayHead = 0; // Retour au début de la fraction de mesure
+                }
+            }
+        } else {
+            // Copiez les données du preparedBuffer au lieu de audioBuffer
+            while (outputNumSamples > 0) {
+                int preparedBufferLength = preparedBuffer.getNumSamples();
+                while (outputNumSamples > 0) {
+                    int samplesAvailable = preparedBufferLength - barFractionPlayHead;
+                    int samplesThisTime = jmin(outputNumSamples, samplesAvailable);
+                    for (auto channel = 0; channel < numOutputChannels; ++channel) {
+                        bufferToFill.buffer->copyFrom(channel,
+                                                      outputStartSample,
+                                                      preparedBuffer,
+                                                      channel % numInputChannels,
+                                                      barFractionPlayHead,
+                                                      samplesThisTime);
+                    }
+                    outputStartSample += samplesThisTime;
+                    outputNumSamples -= samplesThisTime;
+                    barFractionPlayHead += samplesThisTime;
+
+                    if (barFractionPlayHead >= preparedBufferLength) {
+                        barFractionPlayHead = 0; // Bouclage du buffer
+                    }
                 }
             }
         }
