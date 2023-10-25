@@ -527,9 +527,12 @@ bool MainComponent::createDirectories() {
     // Construire le chemin complet
     const string& bpm = bpmEditor.getText().toStdString();
     const string& tone = toneSelect.getText().toStdString();
+    string sanitizedTone = tone;
+    std::replace(sanitizedTone.begin(), sanitizedTone.end(), '/', '-'); // remplace '/' par '-'
+
     const string& year = yearEditor.getText().toStdString();
     const string& song = songEditor.getText().toStdString();
-    fsys::path dirPath = basePath / bpm / tone / year / song;
+    fsys::path dirPath = basePath / bpm / sanitizedTone / year / song;
 
     // Vérifier si le répertoire existe déjà
     if(fsys::exists(dirPath))
