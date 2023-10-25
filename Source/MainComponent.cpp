@@ -399,6 +399,7 @@ void MainComponent::processingButtonClicked()
     || fileWav.empty()
     || rootFolder.empty())
         return;
+
     setMouseCursor(MouseCursor::WaitCursor);
     updateMouseCursor();
 
@@ -410,7 +411,10 @@ void MainComponent::processingButtonClicked()
             // cout << "Le répertoire existe déjà!" << endl;
         }
         String fileInput = fileWav;
-        player = std::make_unique<WAVPlayer>(fileInput, folderComplete, bpmEditor.getText().getFloatValue());
+        player = std::make_unique<WAVPlayer>(fileInput,
+                                             folderComplete,
+                                             bpmEditor.getText().getFloatValue(),
+                                             soundEditor.getText());
         player->setWrite(true);
         player->setBarFraction(WAVPlayer::BarFraction::Bar);
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);

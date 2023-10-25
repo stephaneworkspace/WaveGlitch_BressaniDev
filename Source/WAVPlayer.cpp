@@ -4,9 +4,10 @@
 
 #include "WAVPlayer.h"
 
-WAVPlayer::WAVPlayer(String inputFile, String folderConcat, float bpm) {
-    bpmFile = bpm;
+WAVPlayer::WAVPlayer(String inputFile, String folderConcat, float bpm, String sound) {
     folderComplete = folderConcat;
+    bpmFile = bpm;
+    soundName = sound;
 
     // read info
     file = sf_open(inputFile.toStdString().c_str(), SFM_READ, &info);
@@ -151,10 +152,10 @@ void WAVPlayer::prepareAdvancedBuffer() {
             bool success = directory.createDirectory();
             if (!success) {
                 DBG("Erreur de création du répertoire: " + f);
-                // TODO popup
+                // unrechable code, la partie création du répertoire a déjà été faite
             }
         }
-        f += "/";
+        f += "/" + soundName + "_";
         switch (currentBarFraction) {
             case Bar:
                 f += "1-1.wav";

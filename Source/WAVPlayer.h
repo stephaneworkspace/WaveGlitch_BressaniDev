@@ -27,7 +27,7 @@ public:
         CLASSIC,
         ADVANCED
     };
-    WAVPlayer(String inputFile, String folderConcat, float bpm);
+    WAVPlayer(String inputFile, String folderConcat, float bpm, String sound);
     ~WAVPlayer() override;
     void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
     void releaseResources() override;
@@ -55,6 +55,7 @@ private:
     SNDFILE* file;
     SF_INFO info;
     float bpmFile;
+    String soundName;
 };
 
 
