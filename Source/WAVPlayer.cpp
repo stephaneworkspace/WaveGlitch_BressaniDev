@@ -7,6 +7,13 @@
 WAVPlayer::WAVPlayer(String inputFile, String folderConcat) {
     folderComplete = folderConcat;
 
+    // read info
+    file = sf_open(inputFile.toStdString().c_str(), SFM_READ, &info);
+    if (!file) {
+        throw std::runtime_error("Cannot open file: " + inputFile.toStdString()); // TODO catch
+    }
+
+    // lecture
     formatManager.registerBasicFormats();
 
     auto file = juce::File(inputFile);
@@ -23,6 +30,7 @@ WAVPlayer::WAVPlayer(String inputFile, String folderConcat) {
 }
 
 WAVPlayer::~WAVPlayer() {
+    sf_close(file);
     shutdownAudio();
 }
 
@@ -180,11 +188,30 @@ void WAVPlayer::prepareAdvancedBuffer() {
         writer.reset(wavFormat.createWriterFor(new juce::FileOutputStream(outputFile),
                                                sampleRate,
                                                preparedBuffer.getNumChannels(),
-                                               24, // bits par échantillon TODO
+                                               getPcmBitDepth(), // bits par échantillon
                                                {}, 0));
         if (writer != nullptr) {
             writer->writeFromAudioSampleBuffer(preparedBuffer, 0, preparedBuffer.getNumSamples());
         }
         writer.reset();
+    }
+}
+
+int WAVPlayer::getPcmBitDepth() const {
+    if ((info.format & SF_FORMAT_TYPEMASK) != SF_FORMAT_WAV) {
+        // Ce n'est pas un fichier WAV, donc on ne peut pas déterminer la profondeur de bit PCM
+        return -1;
+    }
+
+    switch (info.format & SF_FORMAT_SUBMASK) {
+        case SF_FORMAT_PCM_16:
+            return 16;
+        case SF_FORMAT_PCM_24:
+            return 24;
+        case SF_FORMAT_PCM_32:
+            return 32;
+        default:
+            // Ce n'est pas un format PCM, donc on ne peut pas déterminer la profondeur de bit
+            return -1;
     }
 }
