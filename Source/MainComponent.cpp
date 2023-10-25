@@ -71,6 +71,11 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     addAndMakeVisible(fileSelectButton);
     addAndMakeVisible(aboutButton);
 
+    addAndMakeVisible(oneButton);
+    addAndMakeVisible(twoButton);
+    addAndMakeVisible(fourButton);
+
+
     rootLabel.setBounds(10, getHeight() - 30, getWidth() - 20, 20);
     fileLabel.setBounds(10, getHeight() - 60, getWidth() - 20, 20);
     durationLabel.setText("", juce::dontSendNotification);
@@ -149,6 +154,28 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     aboutButton.setBounds(getWidth() - 100, 170, 80, 30);
     aboutButton.onClick = [this] { aboutButtonClicked(); };
 
+
+    oneButton.setButtonText("1/1");
+    oneButton.setBounds(getWidth() - 100, 210, 80, 30);
+    oneButton.onClick = [this] {
+        player->setWrite(false);
+        player->setBarFraction(WAVPlayer::BarFraction::Bar);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+    };
+    twoButton.setButtonText("1/2");
+    twoButton.setBounds(getWidth() - 100, 250, 80, 30);
+    twoButton.onClick = [this] {
+        player->setWrite(false);
+        player->setBarFraction(WAVPlayer::BarFraction::Half);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+    };
+    fourButton.setButtonText("1/4");
+    fourButton.setBounds(getWidth() - 100, 290, 80, 30);
+    fourButton.onClick = [this] {
+        player->setWrite(false);
+        player->setBarFraction(WAVPlayer::BarFraction::Quarter);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+    };
     // Load datas
     options.applicationName = "WaveGlitch";
     options.folderName = "WaveGlitch";
@@ -437,6 +464,11 @@ void MainComponent::processingButtonClicked()
         AlertWindow::showMessageBoxAsync (AlertWindow::InfoIcon,
                                           "Processing complete",
                                           "Files are written to the disk !");
+        addAndMakeVisible(oneButton);
+        addAndMakeVisible(twoButton);
+        addAndMakeVisible(fourButton);
+
+
         // player->setWrite(false);
     } catch (const fsys::filesystem_error& e) {
         // cerr << "Erreur du système de fichiers: " << e.what() << endl;

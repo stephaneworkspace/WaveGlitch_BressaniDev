@@ -87,5 +87,9 @@ private:
 
     std::unique_ptr<WAVPlayer> player;
 
+    TextButton oneButton;
+    TextButton twoButton;
+    TextButton fourButton;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };
