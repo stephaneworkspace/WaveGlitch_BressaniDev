@@ -26,7 +26,7 @@ public:
         CLASSIC,
         ADVANCED
     };
-    WAVPlayer();
+    WAVPlayer(String inputFile, String folderConcat);
     ~WAVPlayer() override;
     void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
     void releaseResources() override;
@@ -45,6 +45,8 @@ private:
     PlaybackMode currentPlaybackMode = CLASSIC;
     juce::AudioSampleBuffer preparedBuffer;
     bool sw_write = false;
+
+    String folderComplete;
 
     void prepareAdvancedBuffer();
 };

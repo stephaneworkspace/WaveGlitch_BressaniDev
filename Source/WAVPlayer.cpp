@@ -4,14 +4,16 @@
 
 #include "WAVPlayer.h"
 
-WAVPlayer::WAVPlayer() {
+WAVPlayer::WAVPlayer(String inputFile, String folderConcat) {
+    folderComplete = folderConcat;
+
     formatManager.registerBasicFormats();
 
-    auto file = juce::File("/Users/stephane/Temp/waveglitch/loop.wav");
+    auto file = juce::File(inputFile);
     std::unique_ptr<juce::AudioFormatReader> reader(formatManager.createReaderFor(file));
 
     if (reader) {
-        audioBuffer.setSize(reader->numChannels, (int)reader->lengthInSamples);
+        audioBuffer.setSize(reader->numChannels, (int) reader->lengthInSamples);
         reader->read(&audioBuffer, 0, (int)reader->lengthInSamples, 0, true, true);
 
         sampleRate = reader->sampleRate;
@@ -130,14 +132,15 @@ void WAVPlayer::prepareAdvancedBuffer() {
     }
 
     if (sw_write) {
-        juce::Time now = juce::Time::getCurrentTime();
-        juce::String dateStr = now.formatted("%Y%m%d");
-        String f = "/Users/stephane/Sample/Samples/WavGlitchBressaniDev/" + dateStr;
+        // juce::Time now = juce::Time::getCurrentTime();
+        // juce::String dateStr = now.formatted("%Y%m%d");
+        String f = folderComplete; // + dateStr;
         File directory(f);
         if (!directory.exists()) {
             bool success = directory.createDirectory();
             if (!success) {
                 DBG("Erreur de création du répertoire: " + f);
+                // TODO popup
             }
         }
         f += "/";
@@ -177,7 +180,7 @@ void WAVPlayer::prepareAdvancedBuffer() {
         writer.reset(wavFormat.createWriterFor(new juce::FileOutputStream(outputFile),
                                                sampleRate,
                                                preparedBuffer.getNumChannels(),
-                                               24, // bits par échantillon
+                                               24, // bits par échantillon TODO
                                                {}, 0));
         if (writer != nullptr) {
             writer->writeFromAudioSampleBuffer(preparedBuffer, 0, preparedBuffer.getNumSamples());

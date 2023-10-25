@@ -17,6 +17,7 @@
 #include "MyObjCWrapper.h"
 #include "CustomLookAndFeel.h"
 #include "AudioFileProperties.h"
+#include "WAVPlayer.h"
 
 using namespace std;
 using namespace juce;
@@ -82,6 +83,9 @@ private:
     std::unique_ptr<PropertiesFile> props;
     string fileWav;
     string rootFolder;
+    String folderComplete;
+
+    std::unique_ptr<WAVPlayer> player;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };

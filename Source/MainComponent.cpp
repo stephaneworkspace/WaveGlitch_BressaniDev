@@ -183,6 +183,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
 MainComponent::~MainComponent() {
     Component::getTopLevelComponent()->removeKeyListener(this);
     toneSelect.setLookAndFeel(nullptr);
+    player = nullptr;  // Détruit le WAVPlayer
     props.reset();
 }
 
@@ -401,11 +402,31 @@ void MainComponent::processingButtonClicked()
 
     // Create folder
     try {
-        if(createDirectories()) {
+        if (createDirectories()) {
             // cout << "Répertoires créés avec succès!" << endl;
         } else {
             // cout << "Le répertoire existe déjà!" << endl;
         }
+        String fileInput = fileWav;
+        player = std::make_unique<WAVPlayer>(fileInput, folderComplete);
+        player->setWrite(true);
+        player->setBarFraction(WAVPlayer::BarFraction::Bar);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+        player->setBarFraction(WAVPlayer::BarFraction::Half);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+        player->setBarFraction(WAVPlayer::BarFraction::Quarter);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+        player->setBarFraction(WAVPlayer::BarFraction::Eighth);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+        player->setBarFraction(WAVPlayer::BarFraction::Sixteenth);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+        player->setBarFraction(WAVPlayer::BarFraction::ThirtyTwoSecond);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+        player->setBarFraction(WAVPlayer::BarFraction::SixtyFourth);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+        player->setBarFraction(WAVPlayer::BarFraction::OneHundredTwentyEighth);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+        player->setWrite(false);
     } catch (const fsys::filesystem_error& e) {
         // cerr << "Erreur du système de fichiers: " << e.what() << endl;
         String msg = "Error attempting to create directories: ";
@@ -549,6 +570,7 @@ bool MainComponent::createDirectories() {
     const string& year = yearEditor.getText().toStdString();
     const string& song = songEditor.getText().toStdString();
     fsys::path dirPath = basePath / bpm / sanitizedTone / year / song;
+    folderComplete = dirPath.generic_string();
 
     // Vérifier si le répertoire existe déjà
     if(fsys::exists(dirPath))
