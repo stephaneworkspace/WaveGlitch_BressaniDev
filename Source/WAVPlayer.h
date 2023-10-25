@@ -54,7 +54,7 @@ private:
 
     SNDFILE* file;
     SF_INFO info;
-    float bpmFile
+    float bpmFile;
 };
 
 
