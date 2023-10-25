@@ -10,6 +10,7 @@
 #include <map>
 #include <iostream>
 #include <chrono>
+#include <filesystem>
 #include <juce_audio_basics/juce_audio_basics.h>
 #include <juce_gui_basics/juce_gui_basics.h>
 #include "Misc.h"
@@ -19,6 +20,7 @@
 
 using namespace std;
 using namespace juce;
+namespace fsys = std::filesystem;
 
 class MainComponent: public Component,
                      public KeyListener,
@@ -44,6 +46,8 @@ private:
     void timerCallback() override;
     void loadPNG(const String& path);
     unique_ptr<Drawable> loadSVG(const String &path);
+    bool createDirectories();
+
     CustomLookAndFeel customLookAndFeel;
 
     string appName;
@@ -76,8 +80,8 @@ private:
 
     PropertiesFile::Options options;
     std::unique_ptr<PropertiesFile> props;
-    String fileWav;
-    String rootFolder;
+    string fileWav;
+    string rootFolder;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };

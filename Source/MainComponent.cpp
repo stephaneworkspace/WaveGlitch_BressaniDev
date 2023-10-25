@@ -158,7 +158,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     // get values
     String getRoot = props->getValue("root");
     if (!getRoot.isEmpty()) {
-        rootFolder = getRoot;
+        rootFolder = getRoot.toStdString();
         String folderPath = "Root folder: " + rootFolder;
         rootLabel.setText(folderPath, juce::dontSendNotification);
     }
@@ -295,7 +295,7 @@ void MainComponent::filesDropped(const StringArray &files, int x, int y) {
                     // Votre traitement du fichier ici...
                     try {
                         AudioFileProperties afp(file.toStdString());
-                        fileWav = file;
+                        fileWav = file.toStdString();
                         fileLabel.setText(file, juce::dontSendNotification);
                         channelsLabel.setText("Channels: " + juce::String(afp.getChannels()) , juce::dontSendNotification);
                         sampleRateLabel.setText("Sample rate: " + juce::String(afp.getSampleRate()) + " @ " + juce::String(afp.getPcmBitDepth()) + "bits PCM", juce::dontSendNotification);
@@ -329,8 +329,8 @@ void MainComponent::textEditorTextChanged (TextEditor& editor)
                                 && !yearEditor.getText().isEmpty()
                                 && !songEditor.getText().isEmpty()
                                 && !soundEditor.getText().isEmpty()
-                                && !fileWav.isEmpty()
-                                && !rootFolder.isEmpty()
+                                && !fileWav.empty()
+                                && !rootFolder.empty()
     );
 }
 
@@ -357,7 +357,7 @@ void MainComponent::rootFolderSelectButtonClicked()
     if (chooser.browseForDirectory())
     {
         auto folder = chooser.getResult();
-        rootFolder = folder.getFullPathName();
+        rootFolder = folder.getFullPathName().toStdString();
         String folderPath = "Root folder: " + rootFolder;
         rootLabel.setText(folderPath, juce::dontSendNotification);
     }
@@ -366,18 +366,44 @@ void MainComponent::rootFolderSelectButtonClicked()
 void MainComponent::processingButtonClicked()
 {
     // Save default value
-    props->setValue("root", rootFolder);
+    String rootF = rootFolder;
+    props->setValue("root", rootF);
     props->setValue("bpm", bpmEditor.getText());
     props->setValue("tone", toneSelect.getText());
     props->setValue("year", yearEditor.getText());
     props->setValue("song", songEditor.getText());
     props->saveIfNeeded();
 
-    /*
-    if (bpmEditor.getText().isEmpty() || barEditor.getText().isEmpty()) {
+    if (bpmEditor.getText().isEmpty()
+    || yearEditor.getText().isEmpty()
+    || songEditor.getText().isEmpty()
+    || soundEditor.getText().isEmpty()
+    || fileWav.empty()
+    || rootFolder.empty())
         return;
+
+    // Create folder
+    try
+    {
+        if(createDirectories())
+        {
+            cout << "Répertoires créés avec succès!" << endl;
+        }
+        else
+        {
+            cout << "Le répertoire existe déjà!" << endl;
+        }
+    }
+    catch (const fsys::filesystem_error& e)
+    {
+        cerr << "Erreur du système de fichiers: " << e.what() << endl;
+    }
+    catch (const exception& e)
+    {
+        cerr << "Erreur: " << e.what() << endl;
     }
 
+    /*
     float bpm = bpmEditor.getText().getFloatValue();
     int bars = barEditor.getText().getIntValue();
 
@@ -491,4 +517,26 @@ unique_ptr<Drawable> MainComponent::loadSVG(const String &path) {
         DBG("XML is null or not an SVG.");
         return nullptr;
     }
+}
+
+bool MainComponent::createDirectories() {
+    // Convertir le chemin de base en fs::path
+    const string& root = rootFolder;
+    fsys::path basePath(root);
+
+    // Construire le chemin complet
+    const string& bpm = bpmEditor.getText().toStdString();
+    const string& tone = toneSelect.getText().toStdString();
+    const string& year = yearEditor.getText().toStdString();
+    const string& song = songEditor.getText().toStdString();
+    fsys::path dirPath = basePath / bpm / tone / year / song;
+
+    // Vérifier si le répertoire existe déjà
+    if(fsys::exists(dirPath))
+    {
+        return false;
+    }
+
+    // Créer les répertoires (y compris tous les répertoires parents nécessaires)
+    return fsys::create_directories(dirPath);
 }
