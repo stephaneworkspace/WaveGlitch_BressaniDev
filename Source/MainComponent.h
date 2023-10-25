@@ -90,6 +90,12 @@ private:
     TextButton oneButton;
     TextButton twoButton;
     TextButton fourButton;
+    TextButton eighthButton;
+    TextButton sixteenthButton;
+    TextButton thirtytwoButton;
+    TextButton sixtyfourthButton;
+    TextButton onehundredtwentyeigthButton;
+    TextButton stoplisteningButton;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };

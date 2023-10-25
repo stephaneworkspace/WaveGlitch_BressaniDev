@@ -71,11 +71,6 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     addAndMakeVisible(fileSelectButton);
     addAndMakeVisible(aboutButton);
 
-    addAndMakeVisible(oneButton);
-    addAndMakeVisible(twoButton);
-    addAndMakeVisible(fourButton);
-
-
     rootLabel.setBounds(10, getHeight() - 30, getWidth() - 20, 20);
     fileLabel.setBounds(10, getHeight() - 60, getWidth() - 20, 20);
     durationLabel.setText("", juce::dontSendNotification);
@@ -154,7 +149,6 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     aboutButton.setBounds(getWidth() - 100, 170, 80, 30);
     aboutButton.onClick = [this] { aboutButtonClicked(); };
 
-
     oneButton.setButtonText("1/1");
     oneButton.setBounds(getWidth() - 100, 210, 80, 30);
     oneButton.onClick = [this] {
@@ -176,6 +170,57 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
         player->setBarFraction(WAVPlayer::BarFraction::Quarter);
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
     };
+    eighthButton.setButtonText("1/8");
+    eighthButton.setBounds(getWidth() - 100, 340, 80, 30);
+    eighthButton.onClick = [this] {
+        player->setWrite(false);
+        player->setBarFraction(WAVPlayer::BarFraction::Eighth);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+    };
+    sixteenthButton.setButtonText("1/16");
+    sixteenthButton.setBounds(getWidth() - 100, 390, 80, 30);
+    sixteenthButton.onClick = [this] {
+        player->setWrite(false);
+        player->setBarFraction(WAVPlayer::BarFraction::Sixteenth);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+    };
+    thirtytwoButton.setButtonText("1/32");
+    thirtytwoButton.setBounds(getWidth() - 100, 440, 80, 30);
+    thirtytwoButton.onClick = [this] {
+        player->setWrite(false);
+        player->setBarFraction(WAVPlayer::BarFraction::ThirtyTwoSecond);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+    };
+    sixtyfourthButton.setButtonText("1/64");
+    sixtyfourthButton.setBounds(getWidth() - 100, 490, 80, 30);
+    sixtyfourthButton.onClick = [this] {
+        player->setWrite(false);
+        player->setBarFraction(WAVPlayer::BarFraction::SixtyFourth);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+    };
+    onehundredtwentyeigthButton.setButtonText("1/128");
+    onehundredtwentyeigthButton.setBounds(getWidth() - 100, 540, 80, 30);
+    onehundredtwentyeigthButton.onClick = [this] {
+        player->setWrite(false);
+        player->setBarFraction(WAVPlayer::BarFraction::OneHundredTwentyEighth);
+        player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+    };
+    stoplisteningButton.setButtonText("Stop listening");
+    stoplisteningButton.setBounds(getWidth() - 100, 590, 80, 30);
+    stoplisteningButton.onClick = [this] {
+        player->shutdownAudio();
+        oneButton.setVisible(false);
+        twoButton.setVisible(false);
+        fourButton.setVisible(false);
+        eighthButton.setVisible(false);
+        sixteenthButton.setVisible(false);
+        thirtytwoButton.setVisible(false);
+        sixtyfourthButton.setVisible(false);
+        onehundredtwentyeigthButton.setVisible(false);
+        stoplisteningButton.setVisible(false);
+
+    };
+
     // Load datas
     options.applicationName = "WaveGlitch";
     options.folderName = "WaveGlitch";
@@ -467,7 +512,12 @@ void MainComponent::processingButtonClicked()
         addAndMakeVisible(oneButton);
         addAndMakeVisible(twoButton);
         addAndMakeVisible(fourButton);
-
+        addAndMakeVisible(eighthButton);
+        addAndMakeVisible(sixteenthButton);
+        addAndMakeVisible(thirtytwoButton);
+        addAndMakeVisible(sixtyfourthButton);
+        addAndMakeVisible(onehundredtwentyeigthButton);
+        addAndMakeVisible(stoplisteningButton);
 
         // player->setWrite(false);
     } catch (const fsys::filesystem_error& e) {
