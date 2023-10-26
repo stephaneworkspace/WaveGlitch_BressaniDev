@@ -150,63 +150,63 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     aboutButton.onClick = [this] { aboutButtonClicked(); };
 
     oneButton.setButtonText("1/1");
-    oneButton.setBounds(getWidth() - 100, 210, 80, 30);
+    oneButton.setBounds(20, 170, 80, 30);
     oneButton.onClick = [this] {
         player->setWrite(false);
         player->setBarFraction(WAVPlayer::BarFraction::Bar);
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
     };
     twoButton.setButtonText("1/2");
-    twoButton.setBounds(getWidth() - 100, 250, 80, 30);
+    twoButton.setBounds(20 + (90 * 1), 170, 80, 30);
     twoButton.onClick = [this] {
         player->setWrite(false);
         player->setBarFraction(WAVPlayer::BarFraction::Half);
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
     };
     fourButton.setButtonText("1/4");
-    fourButton.setBounds(getWidth() - 100, 290, 80, 30);
+    fourButton.setBounds(20 + (90 * 2), 170, 80, 30);
     fourButton.onClick = [this] {
         player->setWrite(false);
         player->setBarFraction(WAVPlayer::BarFraction::Quarter);
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
     };
     eighthButton.setButtonText("1/8");
-    eighthButton.setBounds(getWidth() - 100, 340, 80, 30);
+    eighthButton.setBounds(20 + (90 * 3), 170, 80, 30);
     eighthButton.onClick = [this] {
         player->setWrite(false);
         player->setBarFraction(WAVPlayer::BarFraction::Eighth);
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
     };
     sixteenthButton.setButtonText("1/16");
-    sixteenthButton.setBounds(getWidth() - 100, 390, 80, 30);
+    sixteenthButton.setBounds(20 + (90 * 4), 170, 80, 30);
     sixteenthButton.onClick = [this] {
         player->setWrite(false);
         player->setBarFraction(WAVPlayer::BarFraction::Sixteenth);
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
     };
     thirtytwoButton.setButtonText("1/32");
-    thirtytwoButton.setBounds(getWidth() - 100, 440, 80, 30);
+    thirtytwoButton.setBounds(20 + (90 * 5), 170, 80, 30);
     thirtytwoButton.onClick = [this] {
         player->setWrite(false);
         player->setBarFraction(WAVPlayer::BarFraction::ThirtyTwoSecond);
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
     };
     sixtyfourthButton.setButtonText("1/64");
-    sixtyfourthButton.setBounds(getWidth() - 100, 490, 80, 30);
+    sixtyfourthButton.setBounds(20 + (90 * 6), 170, 80, 30);
     sixtyfourthButton.onClick = [this] {
         player->setWrite(false);
         player->setBarFraction(WAVPlayer::BarFraction::SixtyFourth);
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
     };
     onehundredtwentyeigthButton.setButtonText("1/128");
-    onehundredtwentyeigthButton.setBounds(getWidth() - 100, 540, 80, 30);
+    onehundredtwentyeigthButton.setBounds(20 + (90 * 7), 170, 80, 30);
     onehundredtwentyeigthButton.onClick = [this] {
         player->setWrite(false);
         player->setBarFraction(WAVPlayer::BarFraction::OneHundredTwentyEighth);
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
     };
     stoplisteningButton.setButtonText("Stop listening");
-    stoplisteningButton.setBounds(getWidth() - 100, 590, 80, 30);
+    stoplisteningButton.setBounds(20 + (90 * 8), 170, 80, 30);
     stoplisteningButton.onClick = [this] {
         player->shutdownAudio();
         oneButton.setVisible(false);
