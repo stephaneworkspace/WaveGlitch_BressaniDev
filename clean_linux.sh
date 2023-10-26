@@ -8,9 +8,6 @@ fi
 if [ -d "WaveGlitch_BressaniDev_artefacts" ]; then
     rm -rf WaveGlitch_BressaniDev_artefacts
 fi
-if [ -d "CMakeFiles" ]; then
-    rm -rf CMakeFiles
-fi
 
 if [[ -f "./build.ninja" ]]; then
     rm "./build.ninja"

@@ -13,8 +13,8 @@ echo "Clean du répertoire, nottament des fichiers ignoré par .gitignore"
 if [ -d "_deps" ]; then
     rm -rf _deps
 fi
-if [ -d "OctaSplit_artefacts" ]; then
-    rm -rf OctaSplit_artefacts
+if [ -d "WaveGlitch_BressaniDev_artefacts" ]; then
+    rm -rf WaveGlitch_BressaniDev_artefacts
 fi
 if [ -d "CMakeFiles" ]; then
     rm -rf CMakeFiles
