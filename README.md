@@ -5,7 +5,7 @@ Bienvenue dans WaveGlitch, une application multiplateforme développée en C++ a
 ![WaveGlitch on MacOS](./Assets/screen_macos.png)
 
 ## À propos
-OctaSplit est un outil pratique destiné aux producteurs de musique. Il permet de faire des conversions et de les rangers dans un répertoire pret à l'usage dans votre éditeur préféré (Ableton Live, Cubase, etc...)
+WaveGlitch est un outil pratique destiné aux producteurs de musique. Il permet de faire des conversions et de les rangers dans un répertoire pret à l'usage dans votre éditeur préféré (Ableton Live, Cubase, etc...)
 
 ## Caractéristiques
 - **Compatible multiplateforme** : Fonctionne sur tous les systèmes d'exploitation courants. Testé sur Mac OS 13 Ventura (intel), Windows 11 et Ubuntu 22.04 Gnome.

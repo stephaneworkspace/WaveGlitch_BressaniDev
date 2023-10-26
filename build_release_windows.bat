@@ -20,7 +20,7 @@ REM vous pouvez spécifier les architectures cibles comme ceci si nécessaire
 REM cmake -DCMAKE_BUILD_TYPE=Release -A x64 ..
 
 REM Compiler le projet
-cmake --build . --target OctaSplit --config Release -- /m
+cmake --build . --target WaveGlitch --config Release -- /m
 
 REM Compiler le projet avec MSBuild
 "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" WaveGlitch.sln /p:Configuration=Release /p:Platform=x64

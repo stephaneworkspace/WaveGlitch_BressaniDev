@@ -10,7 +10,7 @@ Misc::Misc() {
     // Si l'ouverture du fichier avec un chemin relatif échoue
     if (!file.is_open()) {
 #ifdef __linux__
-        file.open("/opt/OctaSplit/.env");
+        file.open("/opt/WaveGlitch/.env");
 #endif
 #ifdef __APPLE__
 // Code spécifique à macOS
@@ -32,7 +32,7 @@ Misc::Misc() {
         env[key] = val;
     }
 
-    appName = env.count("APP_NAME") ? env["APP_NAME"] : "OctaSplit";
+    appName = env.count("APP_NAME") ? env["APP_NAME"] : "WaveGlitch";
     appVersion = env.count("APP_VERSION") ? env["APP_VERSION"] : "Unknown Version";
 }
 

@@ -568,7 +568,7 @@ void MainComponent::loadPNG(const String& path)
     String p = "";
     // Si l'ouverture du fichier avec un chemin relatif échoue
     if (!file.exists()) {
-        p = "/opt/OctaSplit/" + path;
+        p = "/opt/WaveGlitch/" + path;
     } else {
         p = path;
     }
@@ -597,7 +597,7 @@ unique_ptr<Drawable> MainComponent::loadSVG(const String &path) {
     String p = "";
     // Si l'ouverture du fichier avec un chemin relatif échoue
     if (!file.exists()) {
-        p = "/opt/OctaSplit/" + path;
+        p = "/opt/WaveGlitch/" + path;
     } else {
         p = path;
     }

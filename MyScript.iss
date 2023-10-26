@@ -18,7 +18,7 @@ DefaultDirName={pf32}\bressani.dev\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputDir=.\
 ;OutputBaseFilename={#MyAppName} Setup
-OutputBaseFilename=OctaSplit-1.0.0-Setup
+OutputBaseFilename=WaveGlitch-1.0.0-Setup
 Compression=lzma
 SolidCompression=yes
 
