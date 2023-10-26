@@ -69,51 +69,75 @@ FetchContent_MakeAvailable(libsndfile rtmidi juce)
 # Si les bibliothèques déclarent des cibles, vous pouvez les utiliser dans target_link_libraries
 #add_executable(WaveGlitch_BressaniDev main.cpp WAVPlayer.cpp WAVPlayer.h)
 
-if (APPLE)
-    # Add these to your plist
-    set(MACOSX_BUNDLE_BUNDLE_NAME "${APP_NAME}")
-    set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${APP_VERSION}")
-    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${APP_VERSION}")
-    set(MACOSX_BUNDLE_ICON_FILE MyIcon.icns)
-    set(APP_ICON_MACOSX ${CMAKE_SOURCE_DIR}/icon/MyIcon.icns)
-    set_source_files_properties(${APP_ICON_MACOSX} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
-    set(MY_ICON_NAME "MyIcon")
-    set(MY_APP_NAME "${APP_NAME}")
-    set(MY_APP_VERSION "${APP_VERSION}")
-    set(MY_APP_BUNDLE "${APP_BUNDLE}")
-    configure_file(${CMAKE_SOURCE_DIR}/Info.plist.in ${CMAKE_BINARY_DIR}/Info.plist)
-    juce_add_gui_app(WaveGlitch_BressaniDev
-            PRODUCT_NAME "WaveGlitch"
-            COMPANY_NAME "Stéphane Bressani - bressani.dev"
-            BUNDLE_ID "bressani.dev.waveglitch"
-            ICON_BIG ${CMAKE_SOURCE_DIR}/icon/MyIcon.icns
-            INFOPLIST_FILE ${CMAKE_BINARY_DIR}/Info.plist
-            # Other options...
-    )
-    set_target_properties(WaveGlitch_BressaniDev PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_BINARY_DIR}/Info.plist)
-    target_sources(WaveGlitch_BressaniDev PRIVATE
-            .env
-            Source/MyObjCWrapper.h
-            Source/MyObjCWrapper.mm
-            Source/Misc.h
-            Source/Misc.cpp
-            Source/CustomLookAndFeel.h
-            Source/CustomLookAndFeel.cpp
-            Source/MainComponent.h
-            Source/MainComponent.cpp
-            Source/Main.cpp
-            Source/WAVPlayer.h
-            Source/WAVPlayer.cpp
-            Source/AudioFileProperties.cpp
-            Source/AudioFileProperties.h
-            ${APP_ICON_MACOSX}
-    )
+if (UNIX)
+    if (APPLE)
+        # Add these to your plist
+        set(MACOSX_BUNDLE_BUNDLE_NAME "${APP_NAME}")
+        set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${APP_VERSION}")
+        set(MACOSX_BUNDLE_LONG_VERSION_STRING "${APP_VERSION}")
+        set(MACOSX_BUNDLE_ICON_FILE MyIcon.icns)
+        set(APP_ICON_MACOSX ${CMAKE_SOURCE_DIR}/icon/MyIcon.icns)
+        set_source_files_properties(${APP_ICON_MACOSX} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+        set(MY_ICON_NAME "MyIcon")
+        set(MY_APP_NAME "${APP_NAME}")
+        set(MY_APP_VERSION "${APP_VERSION}")
+        set(MY_APP_BUNDLE "${APP_BUNDLE}")
+        configure_file(${CMAKE_SOURCE_DIR}/Info.plist.in ${CMAKE_BINARY_DIR}/Info.plist)
+        juce_add_gui_app(WaveGlitch_BressaniDev
+                PRODUCT_NAME "WaveGlitch"
+                COMPANY_NAME "Stéphane Bressani - bressani.dev"
+                BUNDLE_ID "bressani.dev.waveglitch"
+                ICON_BIG ${CMAKE_SOURCE_DIR}/icon/MyIcon.icns
+                INFOPLIST_FILE ${CMAKE_BINARY_DIR}/Info.plist
+                # Other options...
+        )
+        set_target_properties(WaveGlitch_BressaniDev PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_BINARY_DIR}/Info.plist)
+        target_sources(WaveGlitch_BressaniDev PRIVATE
+                .env
+                Source/MyObjCWrapper.h
+                Source/MyObjCWrapper.mm
+                Source/Misc.h
+                Source/Misc.cpp
+                Source/CustomLookAndFeel.h
+                Source/CustomLookAndFeel.cpp
+                Source/MainComponent.h
+                Source/MainComponent.cpp
+                Source/Main.cpp
+                Source/WAVPlayer.h
+                Source/WAVPlayer.cpp
+                Source/AudioFileProperties.cpp
+                Source/AudioFileProperties.h
+                ${APP_ICON_MACOSX}
+        )
+    else ()
+        juce_add_gui_app(WaveGlitch_BressaniDev
+                PRODUCT_NAME "WaveGlitch"
+                COMPANY_NAME "Stéphane Bressani - bressani.dev"
+                BUNDLE_ID "bressani.dev.waveglitch"
+                ICON_BIG ${CMAKE_SOURCE_DIR}/icon/MyIcon.icns
+                # Other options...
+        )
+        target_sources(WaveGlitch_BressaniDev PRIVATE
+                .env
+                Source/Misc.h
+                Source/Misc.cpp
+                Source/CustomLookAndFeel.h
+                Source/CustomLookAndFeel.cpp
+                Source/MainComponent.h
+                Source/MainComponent.cpp
+                Source/Main.cpp
+                Source/WAVPlayer.h
+                Source/WAVPlayer.cpp
+                Source/AudioFileProperties.cpp
+                Source/AudioFileProperties.h
+        )
+    endif ()
 else ()
+    set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_SOURCE_DIR}/icon/ap.rc")
     juce_add_gui_app(WaveGlitch_BressaniDev
             PRODUCT_NAME "WaveGlitch"
             COMPANY_NAME "Stéphane Bressani - bressani.dev"
             BUNDLE_ID "bressani.dev.waveglitch"
-            ICON_BIG ${CMAKE_SOURCE_DIR}/icon/MyIcon.icns
             # Other options...
     )
     target_sources(WaveGlitch_BressaniDev PRIVATE
@@ -129,7 +153,21 @@ else ()
             Source/WAVPlayer.cpp
             Source/AudioFileProperties.cpp
             Source/AudioFileProperties.h
+            icon/app.rc
     )
+endif ()
+
+if (UNIX AND NOT APPLE)
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(GTK REQUIRED gtk+-3.0)
+    pkg_check_modules(WEBKIT2GTK REQUIRED webkit2gtk-4.0)
+    pkg_check_modules(CURL REQUIRED libcurl)
+
+    include_directories(${GTK_INCLUDE_DIRS} ${WEBKIT2GTK_INCLUDE_DIRS} ${CURL_INCLUDE_DIRS})
+    link_directories(${GTK_LIBRARY_DIRS} ${WEBKIT2GTK_LIBRARY_DIRS} ${CURL_LIBRARY_DIRS})
+
+    add_definitions(${GTK_CFLAGS_OTHER} ${WEBKIT2GTK_CFLAGS_OTHER} ${CURL_CFLAGS_OTHER})
+    target_link_libraries(OctaSplit PRIVATE ${GTK_LIBRARIES} ${WEBKIT2GTK_LIBRARIES} ${CURL_LIBRARIES})
 endif ()
 
 if (APPLE)
@@ -149,6 +187,19 @@ if (APPLE)
         juce::juce_gui_basics
         juce::juce_gui_extra
         ${COCOA_LIBRARY}
+    )
+else ()
+    target_link_libraries(WaveGlitch_BressaniDev PRIVATE
+            sndfile
+            rtmidi
+            juce::juce_core
+            juce::juce_audio_basics
+            juce::juce_audio_devices
+            juce::juce_audio_formats
+            juce::juce_audio_processors
+            juce::juce_audio_utils
+            juce::juce_gui_basics
+            juce::juce_gui_extra
     )
 endif ()
 add_custom_command(TARGET WaveGlitch_BressaniDev POST_BUILD
