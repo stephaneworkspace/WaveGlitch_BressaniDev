@@ -71,6 +71,22 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     addAndMakeVisible(fileSelectButton);
     addAndMakeVisible(aboutButton);
 
+    addAndMakeVisible(soundPreviewLabel);
+
+                                     addAndMakeVisible(oneButton);
+                                     addAndMakeVisible(twoButton);
+                                     addAndMakeVisible(fourButton);
+                                     addAndMakeVisible(eighthButton);
+                                     addAndMakeVisible(sixteenthButton);
+                                     addAndMakeVisible(thirtytwoButton);
+                                     addAndMakeVisible(sixtyfourthButton);
+                                     addAndMakeVisible(onehundredtwentyeigthButton);
+                                     addAndMakeVisible(stoplisteningButton);
+
+    soundPreviewLabel.setBounds(17, 160, 600, 20);
+    soundPreviewLabel.setFont(juce::Font(30.0f));
+    soundPreviewLabel.setText("", juce::dontSendNotification);
+
     rootLabel.setBounds(10, getHeight() - 30, getWidth() - 20, 20);
     fileLabel.setBounds(10, getHeight() - 60, getWidth() - 20, 20);
     durationLabel.setText("", juce::dontSendNotification);
@@ -80,15 +96,15 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     channelsLabel.setText("", juce::dontSendNotification);
     channelsLabel.setBounds(10, getHeight() - 150, getWidth() - 20, 20);
 
-    bpmLabel.setFont (juce::Font (30.0f));
+    bpmLabel.setFont(juce::Font(30.0f));
     bpmLabel.setText("Bpm: ", juce::dontSendNotification);
     bpmLabel.setJustificationType (juce::Justification::left);
-    bpmEditor.setFont (juce::Font (30.0f));
+    bpmEditor.setFont(juce::Font(30.0f));
     bpmEditor.setInputRestrictions(0, "0123456789."); // Autoriser uniquement les chiffres et le point.
     bpmEditor.setJustification(juce::Justification::centred);
     bpmEditor.setText("120.0");
 
-    toneLabel.setFont (juce::Font (30.0f));
+    toneLabel.setFont(juce::Font(30.0f));
     toneLabel.setText("Tone: ", juce::dontSendNotification);
     toneLabel.setJustificationType (juce::Justification::left);
     toneSelect.setLookAndFeel(&customLookAndFeel);
@@ -209,6 +225,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     stoplisteningButton.setBounds(20 + (90 * 8), 200, 80, 30);
     stoplisteningButton.onClick = [this] {
         player->shutdownAudio();
+        /*
         oneButton.setVisible(false);
         twoButton.setVisible(false);
         fourButton.setVisible(false);
@@ -218,7 +235,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
         sixtyfourthButton.setVisible(false);
         onehundredtwentyeigthButton.setVisible(false);
         stoplisteningButton.setVisible(false);
-
+        */
     };
 
     // Load datas

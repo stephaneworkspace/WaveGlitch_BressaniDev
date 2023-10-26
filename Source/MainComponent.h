@@ -87,6 +87,7 @@ private:
 
     std::unique_ptr<WAVPlayer> player;
 
+    Label soundPreviewLabel;
     TextButton oneButton;
     TextButton twoButton;
     TextButton fourButton;
