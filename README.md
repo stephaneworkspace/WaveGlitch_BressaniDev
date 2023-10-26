@@ -32,5 +32,9 @@ cd build
 cmake ..
 ```
 
+## Bugs
+
+La lecture des échantillons après le traitement ne fonctionne pas dans mon test sur Ubuntu 22.04, mais la création des échantillons fonctionne.
+
 ## Contact
 Pour toute question ou suggestion, n'hésitez pas à me contacter sur [bressani.dev](http://bressani.dev).
