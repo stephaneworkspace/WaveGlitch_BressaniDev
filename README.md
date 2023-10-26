@@ -3,6 +3,7 @@
 Bienvenue dans WaveGlitch, une application multiplateforme développée en C++ avec l'ui en JUCE.
 
 ![WaveGlitch on MacOS](./Assets/screen_macos.png)
+![WaveGlitch on Linux Ubuntu/Debian](./Assets/screen_linux.png)
 
 ## À propos
 WaveGlitch est un outil pratique destiné aux producteurs de musique. Il permet de faire des conversions et de les rangers dans un répertoire pret à l'usage dans votre éditeur préféré (Ableton Live, Cubase, etc...)
