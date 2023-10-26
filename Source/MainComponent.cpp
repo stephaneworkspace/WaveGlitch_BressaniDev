@@ -402,7 +402,7 @@ bool MainComponent::keyPressed(const KeyPress &key, Component *originatingCompon
     return false;  // Indiquer que l'événement de la touche n'a pas été traité
 }
 
-void MainComponent::textEditorTextChanged (TextEditor& editor)
+void MainComponent::textEditorTextChanged(TextEditor& editor)
 {
     processingButton.setEnabled(!bpmEditor.getText().isEmpty()
                                 && !yearEditor.getText().isEmpty()
@@ -411,12 +411,11 @@ void MainComponent::textEditorTextChanged (TextEditor& editor)
                                 && !fileWav.empty()
                                 && !rootFolder.empty()
     );
+    // Detect type keyboard
     if(!bpmEditor.getText().isEmpty()
     && !yearEditor.getText().isEmpty()
     && !songEditor.getText().isEmpty()
-    && !soundEditor.getText().isEmpty()
-    && !fileWav.empty()
-    && !rootFolder.empty())
+    && !soundEditor.getText().isEmpty())
         stop();
 }
 
@@ -515,6 +514,12 @@ void MainComponent::processingButtonClicked()
                                           "Processing complete",
                                           "Files are written to the disk !");
         soundPreviewLabel.setText("Preview: " + soundEditor.getText(), juce::dontSendNotification);
+        soundEditor.setText("", juce::dontSendNotification);
+        fileWav = "";
+        fileLabel.setText("No file loaded...", juce::dontSendNotification);
+        durationLabel.setText ("", dontSendNotification);
+        sampleRateLabel.setText ("", dontSendNotification);
+        channelsLabel.setText ("", dontSendNotification);
         addAndMakeVisible(oneButton);
         addAndMakeVisible(twoButton);
         addAndMakeVisible(fourButton);
