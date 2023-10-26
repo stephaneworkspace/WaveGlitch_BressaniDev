@@ -6,12 +6,11 @@ Bienvenue dans WaveGlitch, une application Mac et Linux développée en C++ avec
 ![WaveGlitch on Linux Ubuntu/Debian](./Assets/screen_linux.png)
 
 ## À propos
-WaveGlitch est un outil pratique destiné aux producteurs de musique. Il permet de faire des conversions et de les rangers dans un répertoire pret à l'usage dans votre éditeur préféré (Ableton Live, Cubase, etc...)
+WaveGlitch est un outil conçu spécialement pour les producteurs musicaux. Il facilite les conversions d'échantillons et les organise dans un répertoire, prêt à être intégré dans votre station audionumérique favorite, telle qu'Ableton Live, Cubase, et bien d'autres.
 
 ## Caractéristiques
-- **Compatible multiplateforme** : Fonctionne sur tous les systèmes d'exploitation courants. Testé sur Mac OS 13 Ventura (intel), Windows 11 et Ubuntu 22.04 Gnome.
-- **Conversion des fichiers audio** : Transformez vos fichiers audio en multi-échantillons 1/2 1/4 1/8 1/16 1/32 1/64 1/128 pour faire des glitchs.
-- **Lecture des échantillons**: Écoutez les échantillons depuis la même fenêtre une fois la conversion effectuée.
+- **Création d'échantillons audio** : Transformez vos audios en échantillons subdivisés (1/2, 1/4, 1/8, 1/16, 1/32, 1/64, 1/128) pour des effets glitchs.
+- **Lecture des échantillons audio**: Écoutez les échantillons depuis la même fenêtre une fois la conversion effectuée.
 
 ## Fonctionnement
 Avec **WaveGlitch**, créer des échantillons glitché n'a jamais été aussi simple. 
@@ -30,7 +29,6 @@ Avec **WaveGlitch**, créer des échantillons glitché n'a jamais été aussi si
 
 ## Licence
 WaveGlitch est publié sous la licence open source GNU General Public License v3.0. Vous êtes libre de modifier, distribuer et utiliser le logiciel en accord avec les termes de cette licence.
-
 
 Pour plus de détails, veuillez consulter le fichier `LICENSE` inclus dans le dépôt.
 
