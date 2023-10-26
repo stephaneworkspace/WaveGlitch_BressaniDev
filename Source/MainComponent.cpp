@@ -529,8 +529,7 @@ void MainComponent::processingButtonClicked()
         addAndMakeVisible(sixtyfourthButton);
         addAndMakeVisible(onehundredtwentyeigthButton);
         addAndMakeVisible(stoplisteningButton);
-
-        // player->setWrite(false);
+        processingButton.setEnabled(false);
     } catch (const fsys::filesystem_error& e) {
         // cerr << "Erreur du système de fichiers: " << e.what() << endl;
         String msg = "Error attempting to create directories: ";
