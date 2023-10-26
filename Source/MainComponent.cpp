@@ -73,16 +73,6 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
 
     addAndMakeVisible(soundPreviewLabel);
 
-                                     addAndMakeVisible(oneButton);
-                                     addAndMakeVisible(twoButton);
-                                     addAndMakeVisible(fourButton);
-                                     addAndMakeVisible(eighthButton);
-                                     addAndMakeVisible(sixteenthButton);
-                                     addAndMakeVisible(thirtytwoButton);
-                                     addAndMakeVisible(sixtyfourthButton);
-                                     addAndMakeVisible(onehundredtwentyeigthButton);
-                                     addAndMakeVisible(stoplisteningButton);
-
     soundPreviewLabel.setBounds(17, 160, 600, 20);
     soundPreviewLabel.setFont(juce::Font(30.0f));
     soundPreviewLabel.setText("", juce::dontSendNotification);
@@ -225,17 +215,6 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     stoplisteningButton.setBounds(20 + (90 * 8), 200, 80, 30);
     stoplisteningButton.onClick = [this] {
         player->shutdownAudio();
-        /*
-        oneButton.setVisible(false);
-        twoButton.setVisible(false);
-        fourButton.setVisible(false);
-        eighthButton.setVisible(false);
-        sixteenthButton.setVisible(false);
-        thirtytwoButton.setVisible(false);
-        sixtyfourthButton.setVisible(false);
-        onehundredtwentyeigthButton.setVisible(false);
-        stoplisteningButton.setVisible(false);
-        */
     };
 
     // Load datas
@@ -387,6 +366,7 @@ void MainComponent::filesDropped(const StringArray &files, int x, int y) {
                         AudioFileProperties afp(file.toStdString());
                         fileWav = file.toStdString();
                         fileLabel.setText(file, juce::dontSendNotification);
+                        stop();
 
                         // Enable processingButton if
                         processingButton.setEnabled(!bpmEditor.getText().isEmpty()
@@ -431,6 +411,13 @@ void MainComponent::textEditorTextChanged (TextEditor& editor)
                                 && !fileWav.empty()
                                 && !rootFolder.empty()
     );
+    if(!bpmEditor.getText().isEmpty()
+    && !yearEditor.getText().isEmpty()
+    && !songEditor.getText().isEmpty()
+    && !soundEditor.getText().isEmpty()
+    && !fileWav.empty()
+    && !rootFolder.empty())
+        stop();
 }
 
 void MainComponent::fileSelectButtonClicked()
@@ -521,11 +508,13 @@ void MainComponent::processingButtonClicked()
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
         player->setBarFraction(WAVPlayer::BarFraction::OneHundredTwentyEighth);
         player->setPlaybackMode(WAVPlayer::PlaybackMode::ADVANCED);
+        swPlay = true;
         setMouseCursor(MouseCursor::NormalCursor);
         updateMouseCursor();
         AlertWindow::showMessageBoxAsync (AlertWindow::InfoIcon,
                                           "Processing complete",
                                           "Files are written to the disk !");
+        soundPreviewLabel.setText("Preview: " + soundEditor.getText(), juce::dontSendNotification);
         addAndMakeVisible(oneButton);
         addAndMakeVisible(twoButton);
         addAndMakeVisible(fourButton);
@@ -549,30 +538,6 @@ void MainComponent::processingButtonClicked()
         msg += e.what();
         AlertWindow::showMessageBoxAsync (AlertWindow::WarningIcon, "Erreur", msg);
     }
-
-    /*
-    float bpm = bpmEditor.getText().getFloatValue();
-    int bars = barEditor.getText().getIntValue();
-
-    try {
-        AudioFileProperties afp(fileLabel.getText().toStdString());
-        afp.splitByBars(bpm, bars);
-        AlertWindow::showMessageBoxAsync (AlertWindow::InfoIcon,
-                                          "Info",
-                                          "File successfully split !");
-        durationLabel.setText ("", dontSendNotification);
-        sampleRateLabel.setText ("", dontSendNotification);
-        channelsLabel.setText ("", dontSendNotification);
-        fileLabel.setText ("No file loaded...", dontSendNotification);
-    } catch (const std::runtime_error& e) {
-        AlertWindow::showMessageBoxAsync (AlertWindow::WarningIcon,
-                                          "Error",
-                                          "Can't open file.");
-        fileLabel.setText ("No file loaded...", dontSendNotification);
-        durationLabel.setText ("", dontSendNotification);
-        sampleRateLabel.setText ("", dontSendNotification);
-        channelsLabel.setText ("", dontSendNotification);
-    }*/
 }
 
 void MainComponent::aboutButtonClicked()
@@ -690,4 +655,20 @@ bool MainComponent::createDirectories() {
 
     // Créer les répertoires (y compris tous les répertoires parents nécessaires)
     return fsys::create_directories(dirPath);
+}
+
+void MainComponent::stop() {
+    soundPreviewLabel.setText("", juce::dontSendNotification);
+    oneButton.setVisible(false);
+    twoButton.setVisible(false);
+    fourButton.setVisible(false);
+    eighthButton.setVisible(false);
+    sixteenthButton.setVisible(false);
+    thirtytwoButton.setVisible(false);
+    sixtyfourthButton.setVisible(false);
+    onehundredtwentyeigthButton.setVisible(false);
+    stoplisteningButton.setVisible(false);
+    if (swPlay) {
+        player->shutdownAudio();
+    }
 }

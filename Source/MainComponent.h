@@ -48,6 +48,7 @@ private:
     void loadPNG(const String& path);
     unique_ptr<Drawable> loadSVG(const String &path);
     bool createDirectories();
+    void stop();
 
     CustomLookAndFeel customLookAndFeel;
 
@@ -87,6 +88,7 @@ private:
 
     std::unique_ptr<WAVPlayer> player;
 
+    bool swPlay;
     Label soundPreviewLabel;
     TextButton oneButton;
     TextButton twoButton;
