@@ -167,7 +167,7 @@ if (UNIX AND NOT APPLE)
     link_directories(${GTK_LIBRARY_DIRS} ${WEBKIT2GTK_LIBRARY_DIRS} ${CURL_LIBRARY_DIRS})
 
     add_definitions(${GTK_CFLAGS_OTHER} ${WEBKIT2GTK_CFLAGS_OTHER} ${CURL_CFLAGS_OTHER})
-    target_link_libraries(OctaSplit PRIVATE ${GTK_LIBRARIES} ${WEBKIT2GTK_LIBRARIES} ${CURL_LIBRARIES})
+    target_link_libraries(WaveGlitch_BressaniDev PRIVATE ${GTK_LIBRARIES} ${WEBKIT2GTK_LIBRARIES} ${CURL_LIBRARIES})
 endif ()
 
 if (APPLE)
