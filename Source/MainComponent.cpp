@@ -663,6 +663,7 @@ bool MainComponent::createDirectories() {
 }
 
 void MainComponent::stop() {
+    processingButton.setEnabled(false);
     soundPreviewLabel.setText("", juce::dontSendNotification);
     oneButton.setVisible(false);
     twoButton.setVisible(false);
