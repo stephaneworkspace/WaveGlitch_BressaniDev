@@ -73,7 +73,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
 
     addAndMakeVisible(soundPreviewLabel);
 
-    soundPreviewLabel.setBounds(17, 160, 600, 20);
+    soundPreviewLabel.setBounds(17, 160, 600, 30);
     soundPreviewLabel.setFont(juce::Font(30.0f));
     soundPreviewLabel.setText("", juce::dontSendNotification);
 
@@ -214,7 +214,8 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     stoplisteningButton.setButtonText("Stop listening");
     stoplisteningButton.setBounds(20 + (90 * 8), 200, 80, 30);
     stoplisteningButton.onClick = [this] {
-        player->shutdownAudio();
+        //player->shutdownAudio();
+        stop();
     };
 
     // Load datas
@@ -553,7 +554,7 @@ void MainComponent::aboutButtonClicked()
     AlertWindow::showMessageBoxAsync (AlertWindow::InfoIcon,
                                       "About",
                                       "This freeware is made by Stephane Bressani\n\nYou can contact him @ www.bressani.dev\nVersion: " + appVersion + "\n\n"
-                                      "Thanks to JUCE for the community version of the cross-platform UI, to portaudio, libsnd, as well as these freepik artists for pieces of graphics that helped in the design of the application: GarryKillian and onfocus.");
+                                      "Thanks to JUCE for the community version of the cross-platform UI, to libsnd, as well as these freepik artists for pieces of graphics that helped in the design of the application: GarryKillian and onfocus.");
 }
 
 void MainComponent::timerCallback()
