@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.26)
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 17)
 #set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_compile_definitions(JUCE_MODAL_LOOPS_PERMITTED=1)
+add_compile_definitions(JUCE_SILENCE_XCODE_15_LINKER_WARNING=1)
 
 # Read each line in the .env file
 file(STRINGS .env ENV_LINES)
@@ -35,6 +36,12 @@ if (UNIX AND NOT APPLE)
     add_compile_definitions(JUCE_USE_XRANDR=0)
     add_definitions(-DJUCE_ENABLE_WIN32_FILETYPE_ASSOCIATION=1)
 endif()
+
+if (APPLE)
+    set(CMAKE_C_COMPILER "/usr/bin/clang")
+    set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+    add_definitions(-Wl,-weak_reference_mismatches,weak)
+endif ()
 
 project(WaveGlitch_BressaniDev VERSION 0.0.1)
 

@@ -119,6 +119,7 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     yearEditor.setInputRestrictions(4, "0123456789"); // Autoriser uniquement les chiffres et le point.
     yearEditor.setJustification(juce::Justification::centred);
 
+    /* C++ 23
     auto today = std::chrono::system_clock::now();
     auto days_since_epoch = std::chrono::duration_cast<std::chrono::days>(today.time_since_epoch());
     std::chrono::sys_days sd{days_since_epoch};
@@ -126,6 +127,33 @@ MainComponent::MainComponent() : fileLabel("", "No file loaded..."),
     auto year = ymd.year();
     int yearInt = static_cast<int>(year);
     std::string yearString = std::to_string(yearInt);
+    */
+
+    // C++17
+
+    // Obtenir le point de temps actuel
+    auto today = std::chrono::system_clock::now();
+
+    // Calculer les jours depuis l'époque
+    auto time_since_epoch = today.time_since_epoch();
+    auto days_since_epoch = std::chrono::duration_cast<std::chrono::duration<int>>(time_since_epoch);
+
+    // Convertir en un point de temps avec une précision de jours
+    auto time_point_with_days = std::chrono::system_clock::time_point(std::chrono::duration_cast<std::chrono::system_clock::duration>(days_since_epoch));
+
+    // Convertir en sys_days
+    auto sys_days = std::chrono::time_point_cast<std::chrono::system_clock::duration>(time_point_with_days);
+
+    // Obtenir l'année, le mois et le jour
+    auto days = std::chrono::duration_cast<std::chrono::duration<int>>(sys_days.time_since_epoch()).count();
+    auto tp = std::chrono::system_clock::time_point(std::chrono::duration_cast<std::chrono::system_clock::duration>(std::chrono::seconds(days * 24 * 60 * 60))); // Convertir jours en secondes
+    auto time_t_days = std::chrono::system_clock::to_time_t(tp);
+    std::tm tm_date = *std::gmtime(&time_t_days);
+
+    // Extraire l'année
+    int year = tm_date.tm_year + 1900;  // tm_year représente les années depuis 1900
+    std::string yearString = std::to_string(year);
+
     yearEditor.setText(yearString);
 
     songLabel.setFont (juce::Font (30.0f));
